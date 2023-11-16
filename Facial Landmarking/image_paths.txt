@@ -1,2 +1,6 @@
 original_images/madonna.jpeg
 original_images/bj_novak.jpeg
+original_images/denzel_washington.jpeg
+original_images/lucy_lui.jpeg
+original_images/michelle_yeoh.jpeg
+original_images/queen_latifah.jpeg
