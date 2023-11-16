@@ -28,7 +28,7 @@ def process_image(image_path):
 
         for feature in features.values():
             for x, y in feature:
-                cv2.circle(img, (x, y), 4, (255, 0, 255), -1)
+                cv2.circle(img, (x, y), 4, (0, 255, 0), -1)
 
         all_faces_features.append(features)
 
