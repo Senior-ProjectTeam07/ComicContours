@@ -1,0 +1,8 @@
+FacialLandmarking/original_images\bj_novak.jpeg
+FacialLandmarking/original_images\bradley_cooper.jpeg
+FacialLandmarking/original_images\denzel_washington.jpeg
+FacialLandmarking/original_images\lucy_lui.jpeg
+FacialLandmarking/original_images\madonna.jpeg
+FacialLandmarking/original_images\michelle_yeoh.jpeg
+FacialLandmarking/original_images\queen_latifah.jpeg
+FacialLandmarking/original_images\Taylor Swift.jpeg

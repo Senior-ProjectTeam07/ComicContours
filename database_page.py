@@ -18,7 +18,6 @@ def get_photo_folder(type_photo):
     image_list = []
     num_images = 0
     for num_images, file in enumerate(folder):
-        print(file)
         img_path = os.path.join(dir_path, file)
         image = PIL.Image.open(img_path)
         resized_img = image.resize((500, 400))

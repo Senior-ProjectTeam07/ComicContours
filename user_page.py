@@ -24,7 +24,6 @@ def create_caricature(fname, checked, text_box):
         messagebox.showerror('Error', 'Error: Please check consent box!')
     if not(fname == '') and (checked is True):
         folder = os.path.abspath("./FacialLandmarking/original_images")
-        print(folder)
         shutil.copy(fname, folder)
         text_box.delete("1.0","end")
         # call facial landmarking to update processed photo folder
