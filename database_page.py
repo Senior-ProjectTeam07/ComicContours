@@ -11,9 +11,9 @@ processed_list = []
 def get_photo_folder(type_photo):
     dir_path = ''
     if type_photo == "Original Photos":
-        dir_path = './Facial Landmarking/original_images'
+        dir_path = './FacialLandmarking/original_images'
     if type_photo == "Processed Photos":
-        dir_path = './Facial Landmarking/processed_images'
+        dir_path = './FacialLandmarking/processed_images'
     folder = os.listdir(dir_path)
     image_list = []
     num_images = 0
