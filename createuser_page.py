@@ -1,11 +1,11 @@
 from tkinter import *
-from user_page import user_window
+import user_page as uw
 
 
 # Function to destroy login and open user window
 def open_user_window(wind):
     wind.destroy()
-    user_window()
+    uw.main()
 
 
 def create_user():

@@ -1,18 +1,18 @@
 from tkinter import *
-from user_page import user_window
-from createuser_page import create_user
+import createuser_page as cu
+import user_page as uw
 import forgotpassword_page as fp
 
 
 # Function to destroy login and open user window
 def open_user_window(wind):
     wind.destroy()
-    user_window()
+    uw.main()
 
 
 def open_create_user_window(wind):
     wind.destroy()
-    create_user()
+    cu.create_user()
 
 
 def open_login_window(event):
@@ -20,7 +20,7 @@ def open_login_window(event):
     fp.forgot_user()
 
 
-def login_window():
+def main():
     global window
     # create main window
     window = Tk()
@@ -45,3 +45,5 @@ def login_window():
     window.mainloop()
 
 
+if __name__ == "__main__":
+    main()

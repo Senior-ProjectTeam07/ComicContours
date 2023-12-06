@@ -5,7 +5,7 @@ import login_page as lp
 # Function to destroy login and open user window
 def open_login_window(wind):
     wind.destroy()
-    lp.login_window()
+    lp.main()
 
 
 def forgot_user():

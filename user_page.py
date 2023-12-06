@@ -2,12 +2,22 @@ import os.path
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
-from database_page import create_database
+import database_page as cd
 import login_page as lp
 import shutil
 import Augmentation_Project.Facial_Landmarking as Fl
 import Augmentation_Project.Augmenting_Features as Af
 filename = ""
+
+
+def open_database(wind):
+    wind.destroy()
+    cd.main()
+
+
+def open_login(wind):
+    wind.destroy()
+    lp.main()
 
 
 def browse_files(text):
@@ -39,18 +49,8 @@ def create_caricature(fname, checked, text_box):
         Af.main()
 
 
-def open_database(wind):
-    wind.destroy()
-    create_database()
-
-
-def open_login(wind):
-    wind.destroy()
-    lp.login_window()
-
-
 # Create user window
-def user_window():
+def main():
     global filename
     window = Tk()
     window.title('Facial Feature Augmentation using GAN')
@@ -79,3 +79,7 @@ def user_window():
     button.grid(row=12, column=1, pady=10, padx=10, sticky=E)
     # Run forever
     window.mainloop()
+
+
+if __name__ == "__main__":
+    main()

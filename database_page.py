@@ -7,16 +7,17 @@ import login_page as ip
 # declare var for later use
 original_list = []
 processed_list = []
+augmented_list = []
 
 
 def open_user_window(wind):
     wind.destroy()
-    up.user_window()
+    up.main()
 
 
 def open_login_window(wind):
     wind.destroy()
-    ip.login_window()
+    ip.main()
 
 
 def get_photo_folder(type_photo):
@@ -210,7 +211,7 @@ def make_process_frame():
 
 
 # Main #
-def create_database():
+def main():
     global orig_frame, process_frame
     # create window
     window = Tk()
@@ -231,3 +232,7 @@ def create_database():
     orig_frame.tkraise()
     window.geometry("590x500")
     window.mainloop()
+
+
+if __name__ == "__main__":
+    main()
