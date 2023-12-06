@@ -3,6 +3,7 @@ from PIL import ImageTk
 import PIL.Image
 from tkinter import *
 import user_page as up
+import login_page as ip
 # declare var for later use
 original_list = []
 processed_list = []
@@ -13,12 +14,17 @@ def open_user_window(wind):
     up.user_window()
 
 
+def open_login_window(wind):
+    wind.destroy()
+    ip.login_window()
+
+
 def get_photo_folder(type_photo):
     dir_path = ''
     if type_photo == "Original Photos":
-        dir_path = './FacialLandmarking/original_images'
+        dir_path = './Augmentation_Project/original_images'
     if type_photo == "Processed Photos":
-        dir_path = './FacialLandmarking/processed_images'
+        dir_path = './Augmentation_Project/processed_images'
     folder = os.listdir(dir_path)
     image_list = []
     num_images = 0
@@ -134,11 +140,9 @@ def make_orig_frame():
     # canvas
     canvas = Canvas(frame_canvas)
     canvas.grid(row=0, column=0, sticky="news")
-
     scrollbar = Scrollbar(frame_canvas, orient="vertical", command=canvas.yview)
     scrollbar.grid(row=0, column=1, sticky="ns")
     canvas.configure(yscrollcommand=scrollbar.set)
-
     btn_frame = Frame(canvas, bg="blue")
     canvas.create_window((0, 0), window=btn_frame, anchor='nw')
     button = list(range(0, num_img+1))
@@ -186,17 +190,14 @@ def make_process_frame():
     # canvas
     canvas = Canvas(frame_canvas)
     canvas.grid(row=0, column=0, sticky="news")
-
     scrollbar = Scrollbar(frame_canvas, orient="vertical", command=canvas.yview)
     scrollbar.grid(row=0, column=1, sticky="ns")
     canvas.configure(yscrollcommand=scrollbar.set)
-
     btn_frame = Frame(canvas, bg="blue")
     canvas.create_window((0, 0), window=btn_frame, anchor='nw')
     button = list(range(0, num_img+1))
     for i in range(0, num_img+1):
-        button[i] = Button(btn_frame, text=i+1, command=lambda i=i: jump_to_photo(i, label, button_forward, button_back,
-                                                                                  num_img, process_frame))
+        button[i] = Button(btn_frame, text=i+1, command=lambda i=i: jump_to_photo(i, label, button_forward, button_back, num_img, process_frame))
         button[i].grid(row=i, column=0, sticky="news")
     btn_frame.update_idletasks()
     btn_width = 2*(button[0].winfo_width())
@@ -211,11 +212,12 @@ def make_process_frame():
 # Main #
 def create_database():
     global orig_frame, process_frame
+    # create window
     window = Tk()
     window.title('Facial Feature Augmentation using GAN')
     mb = Menu(window)
     mb_dropdown = Menu(mb, tearoff=0)
-    mb_dropdown.add_command(label="Logout")
+    mb_dropdown.add_command(label="Logout",  command=lambda: open_login_window(window))
     mb_dropdown.add_command(label="About")
     mb_dropdown.add_command(label="Main Page",  command=lambda: open_user_window(window))
     mb.add_cascade(label="Menu", menu=mb_dropdown)

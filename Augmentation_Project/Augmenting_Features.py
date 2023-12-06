@@ -45,10 +45,10 @@ def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_f
 
 
 def main():
-    facial_features = np.load('facial_features.npy')
+    facial_features = np.load('Augmentation_Project/facial_features.npy')
     feature_to_int = {'jawline': 0, 'eyebrows': 1, 'nose': 2, 'eyes': 3, 'lips': 4}
-    image_directory = 'original_images'
-    augmented_directory = 'augmented_images'
+    image_directory = 'Augmentation_Project/original_images'
+    augmented_directory = 'Augmentation_Project/augmented_images'
     nose_scale_factor = 1.25
     eye_scale_factor = 0.80
 
