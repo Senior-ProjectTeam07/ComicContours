@@ -4,7 +4,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 from database_page import create_database
 import shutil
-from FacialLandmarking.Facial_Landmarking import make_processed_photo
+import Facial_Landmarking as Fl
 filename = ""
 
 
@@ -17,6 +17,7 @@ def browse_files(text):
 
 
 def create_caricature(fname, checked, text_box):
+    global filename
     #  copy image
     if fname == '':
         messagebox.showerror('Error', 'Error: Please upload an image!')
@@ -25,9 +26,10 @@ def create_caricature(fname, checked, text_box):
     if not(fname == '') and (checked is True):
         folder = os.path.abspath("./FacialLandmarking/original_images")
         shutil.copy(fname, folder)
-        text_box.delete("1.0","end")
+        text_box.delete("1.0", "end")
+        filename = ''
         # call facial landmarking to update processed photo folder
-        make_processed_photo()
+        Fl.make_processed_photo()
 
 
 def open_database(wind):

@@ -51,7 +51,7 @@ def make_processed_photo():
         for path in image_paths:
             file.write(path + '\n')
 
-    with open('facial_features.csv', 'w', newline='') as csvfile:
+    with open('FacialLandmarking/facial_features.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['Image', 'Feature', 'Landmark', 'X Coordinate', 'Y Coordinate'])
 

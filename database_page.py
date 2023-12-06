@@ -2,10 +2,15 @@ import os
 from PIL import ImageTk
 import PIL.Image
 from tkinter import *
-
+import user_page as up
 # declare var for later use
 original_list = []
 processed_list = []
+
+
+def open_user_window(wind):
+    wind.destroy()
+    up.user_window()
 
 
 def get_photo_folder(type_photo):
@@ -212,7 +217,7 @@ def create_database():
     mb_dropdown = Menu(mb, tearoff=0)
     mb_dropdown.add_command(label="Logout")
     mb_dropdown.add_command(label="About")
-    mb_dropdown.add_command(label="Main Page")
+    mb_dropdown.add_command(label="Main Page",  command=lambda: open_user_window(window))
     mb.add_cascade(label="Menu", menu=mb_dropdown)
     window.config(menu=mb)
     orig_frame = Frame(window)
