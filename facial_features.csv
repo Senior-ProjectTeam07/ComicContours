@@ -1,0 +1,545 @@
+Image,Feature,Landmark,X Coordinate,Y Coordinate
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 1,1510,1259
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 2,1515,1394
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 3,1534,1529
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 4,1560,1664
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 5,1597,1797
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 6,1658,1929
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 7,1741,2046
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 8,1844,2148
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 9,1981,2182
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 10,2123,2160
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 11,2254,2072
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 12,2373,1965
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 13,2466,1846
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 14,2524,1708
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 15,2552,1562
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 16,2569,1418
+FacialLandmarking/original_images\bj_novak.jpeg,jawline,Landmark 17,2572,1273
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 1,1554,1147
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 2,1587,1044
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 3,1685,998
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 4,1787,1005
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 5,1890,1045
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 6,2058,1040
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 7,2172,1001
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 8,2287,993
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 9,2398,1038
+FacialLandmarking/original_images\bj_novak.jpeg,eyebrows,Landmark 10,2457,1143
+FacialLandmarking/original_images\bj_novak.jpeg,nose,Landmark 1,1965,1142
+FacialLandmarking/original_images\bj_novak.jpeg,nose,Landmark 2,1959,1238
+FacialLandmarking/original_images\bj_novak.jpeg,nose,Landmark 3,1955,1333
+FacialLandmarking/original_images\bj_novak.jpeg,nose,Landmark 4,1951,1434
+FacialLandmarking/original_images\bj_novak.jpeg,nose,Landmark 5,1869,1512
+FacialLandmarking/original_images\bj_novak.jpeg,nose,Landmark 6,1914,1531
+FacialLandmarking/original_images\bj_novak.jpeg,nose,Landmark 7,1964,1546
+FacialLandmarking/original_images\bj_novak.jpeg,nose,Landmark 8,2018,1526
+FacialLandmarking/original_images\bj_novak.jpeg,nose,Landmark 9,2071,1510
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 1,1661,1193
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 2,1710,1147
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 3,1779,1142
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 4,1846,1186
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 5,1780,1202
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 6,1712,1209
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 7,2134,1182
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 8,2199,1141
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 9,2269,1146
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 10,2322,1192
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 11,2269,1208
+FacialLandmarking/original_images\bj_novak.jpeg,eyes,Landmark 12,2199,1201
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 1,1796,1730
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 2,1865,1705
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 3,1932,1682
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 4,1980,1698
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 5,2031,1680
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 6,2108,1704
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 7,2188,1733
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 8,2110,1793
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 9,2035,1824
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 10,1979,1829
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 11,1928,1823
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 12,1865,1791
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 13,1830,1736
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 14,1930,1734
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 15,1980,1739
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 16,2032,1732
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 17,2153,1735
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 18,2032,1741
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 19,1980,1748
+FacialLandmarking/original_images\bj_novak.jpeg,lips,Landmark 20,1931,1739
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 1,99,203
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 2,102,226
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 3,105,250
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 4,106,273
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 5,113,296
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 6,126,315
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 7,145,328
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 8,167,337
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 9,193,339
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 10,218,335
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 11,241,325
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 12,259,310
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 13,272,291
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 14,277,268
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 15,277,245
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 16,279,222
+FacialLandmarking/original_images\bradley_cooper.jpeg,jawline,Landmark 17,280,200
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 1,113,188
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 2,122,173
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 3,138,166
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 4,156,166
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 5,174,169
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 6,194,169
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 7,214,166
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 8,234,166
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 9,251,172
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyebrows,Landmark 10,262,187
+FacialLandmarking/original_images\bradley_cooper.jpeg,nose,Landmark 1,186,183
+FacialLandmarking/original_images\bradley_cooper.jpeg,nose,Landmark 2,187,196
+FacialLandmarking/original_images\bradley_cooper.jpeg,nose,Landmark 3,187,210
+FacialLandmarking/original_images\bradley_cooper.jpeg,nose,Landmark 4,188,224
+FacialLandmarking/original_images\bradley_cooper.jpeg,nose,Landmark 5,173,239
+FacialLandmarking/original_images\bradley_cooper.jpeg,nose,Landmark 6,181,241
+FacialLandmarking/original_images\bradley_cooper.jpeg,nose,Landmark 7,189,242
+FacialLandmarking/original_images\bradley_cooper.jpeg,nose,Landmark 8,197,241
+FacialLandmarking/original_images\bradley_cooper.jpeg,nose,Landmark 9,204,239
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 1,132,191
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 2,141,183
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 3,152,182
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 4,162,190
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 5,152,192
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 6,141,193
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 7,210,190
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 8,219,182
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 9,231,183
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 10,240,190
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 11,231,192
+FacialLandmarking/original_images\bradley_cooper.jpeg,eyes,Landmark 12,220,192
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 1,154,275
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 2,168,269
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 3,179,266
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 4,190,268
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 5,200,265
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 6,212,267
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 7,227,272
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 8,214,276
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 9,202,276
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 10,192,277
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 11,181,277
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 12,169,278
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 13,159,274
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 14,180,270
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 15,190,272
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 16,200,270
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 17,222,271
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 18,201,268
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 19,191,269
+FacialLandmarking/original_images\bradley_cooper.jpeg,lips,Landmark 20,180,269
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 1,121,262
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 2,126,294
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 3,132,326
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 4,139,359
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 5,151,391
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 6,173,418
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 7,198,442
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 8,226,463
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 9,259,466
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 10,293,455
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 11,321,430
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 12,344,401
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 13,362,369
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 14,369,334
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 15,370,296
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 16,367,261
+FacialLandmarking/original_images\denzel_washington.jpeg,jawline,Landmark 17,363,227
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 1,127,248
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 2,136,228
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 3,157,221
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 4,180,221
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 5,205,224
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 6,245,223
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 7,268,213
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 8,291,206
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 9,316,208
+FacialLandmarking/original_images\denzel_washington.jpeg,eyebrows,Landmark 10,335,220
+FacialLandmarking/original_images\denzel_washington.jpeg,nose,Landmark 1,227,246
+FacialLandmarking/original_images\denzel_washington.jpeg,nose,Landmark 2,229,267
+FacialLandmarking/original_images\denzel_washington.jpeg,nose,Landmark 3,232,288
+FacialLandmarking/original_images\denzel_washington.jpeg,nose,Landmark 4,235,310
+FacialLandmarking/original_images\denzel_washington.jpeg,nose,Landmark 5,209,327
+FacialLandmarking/original_images\denzel_washington.jpeg,nose,Landmark 6,224,329
+FacialLandmarking/original_images\denzel_washington.jpeg,nose,Landmark 7,239,331
+FacialLandmarking/original_images\denzel_washington.jpeg,nose,Landmark 8,254,325
+FacialLandmarking/original_images\denzel_washington.jpeg,nose,Landmark 9,268,319
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 1,153,257
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 2,166,248
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 3,183,245
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 4,197,254
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 5,183,260
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 6,166,262
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 7,265,246
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 8,277,234
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 9,294,232
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 10,309,238
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 11,297,246
+FacialLandmarking/original_images\denzel_washington.jpeg,eyes,Landmark 12,280,247
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 1,194,374
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 2,210,365
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 3,228,357
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 4,243,359
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 5,256,353
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 6,279,354
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 7,301,358
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 8,284,382
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 9,264,396
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 10,248,400
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 11,232,401
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 12,213,393
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 13,203,374
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 14,229,368
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 15,244,368
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 16,258,364
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 17,294,361
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 18,261,377
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 19,246,383
+FacialLandmarking/original_images\denzel_washington.jpeg,lips,Landmark 20,231,382
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 1,581,429
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 2,588,580
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 3,612,733
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 4,632,882
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 5,677,1025
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 6,759,1146
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 7,865,1248
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 8,991,1328
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 9,1120,1352
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 10,1247,1333
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 11,1368,1253
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 12,1469,1149
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 13,1550,1028
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 14,1600,883
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 15,1626,734
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 16,1652,582
+FacialLandmarking/original_images\lucy_lui.jpeg,jawline,Landmark 17,1655,430
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 1,674,318
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 2,755,276
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 3,852,283
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 4,943,309
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 5,1031,352
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 6,1227,349
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 7,1312,306
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 8,1403,280
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 9,1501,281
+FacialLandmarking/original_images\lucy_lui.jpeg,eyebrows,Landmark 10,1581,327
+FacialLandmarking/original_images\lucy_lui.jpeg,nose,Landmark 1,1130,470
+FacialLandmarking/original_images\lucy_lui.jpeg,nose,Landmark 2,1130,576
+FacialLandmarking/original_images\lucy_lui.jpeg,nose,Landmark 3,1131,685
+FacialLandmarking/original_images\lucy_lui.jpeg,nose,Landmark 4,1130,792
+FacialLandmarking/original_images\lucy_lui.jpeg,nose,Landmark 5,1027,852
+FacialLandmarking/original_images\lucy_lui.jpeg,nose,Landmark 6,1078,868
+FacialLandmarking/original_images\lucy_lui.jpeg,nose,Landmark 7,1130,884
+FacialLandmarking/original_images\lucy_lui.jpeg,nose,Landmark 8,1181,866
+FacialLandmarking/original_images\lucy_lui.jpeg,nose,Landmark 9,1227,849
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 1,786,461
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 2,848,428
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 3,922,438
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 4,974,498
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 5,907,504
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 6,837,497
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 7,1279,500
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 8,1332,440
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 9,1405,430
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 10,1465,461
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 11,1415,495
+FacialLandmarking/original_images\lucy_lui.jpeg,eyes,Landmark 12,1344,502
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 1,927,1028
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 2,1003,1002
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 3,1074,986
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 4,1127,1003
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 5,1179,988
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 6,1245,1004
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 7,1318,1029
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 8,1249,1110
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 9,1182,1149
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 10,1124,1155
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 11,1067,1147
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 12,997,1109
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 13,964,1039
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 14,1071,1052
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 15,1126,1058
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 16,1179,1055
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 17,1282,1040
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 18,1180,1061
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 19,1126,1066
+FacialLandmarking/original_images\lucy_lui.jpeg,lips,Landmark 20,1072,1059
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 1,575,466
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 2,578,611
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 3,599,760
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 4,626,905
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 5,670,1047
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 6,743,1171
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 7,844,1280
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 8,967,1370
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 9,1109,1406
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 10,1253,1390
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 11,1382,1312
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 12,1503,1213
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 13,1597,1094
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 14,1650,954
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 15,1689,809
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 16,1728,665
+FacialLandmarking/original_images\madonna.jpeg,jawline,Landmark 17,1748,515
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 1,647,323
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 2,746,280
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 3,856,284
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 4,962,314
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 5,1061,367
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 6,1280,364
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 7,1382,326
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 8,1484,314
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 9,1585,325
+FacialLandmarking/original_images\madonna.jpeg,eyebrows,Landmark 10,1666,380
+FacialLandmarking/original_images\madonna.jpeg,nose,Landmark 1,1163,485
+FacialLandmarking/original_images\madonna.jpeg,nose,Landmark 2,1161,584
+FacialLandmarking/original_images\madonna.jpeg,nose,Landmark 3,1158,687
+FacialLandmarking/original_images\madonna.jpeg,nose,Landmark 4,1156,790
+FacialLandmarking/original_images\madonna.jpeg,nose,Landmark 5,1037,835
+FacialLandmarking/original_images\madonna.jpeg,nose,Landmark 6,1087,857
+FacialLandmarking/original_images\madonna.jpeg,nose,Landmark 7,1143,879
+FacialLandmarking/original_images\madonna.jpeg,nose,Landmark 8,1199,866
+FacialLandmarking/original_images\madonna.jpeg,nose,Landmark 9,1250,851
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 1,772,457
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 2,845,411
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 3,934,421
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 4,1000,499
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 5,919,507
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 6,833,499
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 7,1313,520
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 8,1388,452
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 9,1475,453
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 10,1536,512
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 11,1480,543
+FacialLandmarking/original_images\madonna.jpeg,eyes,Landmark 12,1396,537
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 1,906,1006
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 2,999,967
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 3,1081,951
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 4,1136,970
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 5,1194,961
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 6,1268,990
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 7,1347,1042
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 8,1259,1122
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 9,1182,1149
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 10,1119,1151
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 11,1059,1139
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 12,982,1099
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 13,947,1019
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 14,1075,1011
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 15,1131,1018
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 16,1191,1019
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 17,1307,1045
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 18,1186,1068
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 19,1126,1068
+FacialLandmarking/original_images\madonna.jpeg,lips,Landmark 20,1069,1058
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 1,624,361
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 2,622,404
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 3,630,446
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 4,641,489
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 5,655,530
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 6,676,567
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 7,704,599
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 8,739,625
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 9,779,633
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 10,820,622
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 11,859,596
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 12,894,565
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 13,920,527
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 14,934,481
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 15,942,434
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 16,950,386
+FacialLandmarking/original_images\michelle_yeoh.jpeg,jawline,Landmark 17,954,338
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 1,632,323
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 2,649,301
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 3,676,296
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 4,703,300
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 5,727,311
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 6,791,303
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 7,820,284
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 8,853,275
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 9,887,280
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyebrows,Landmark 10,912,301
+FacialLandmarking/original_images\michelle_yeoh.jpeg,nose,Landmark 1,761,347
+FacialLandmarking/original_images\michelle_yeoh.jpeg,nose,Landmark 2,760,381
+FacialLandmarking/original_images\michelle_yeoh.jpeg,nose,Landmark 3,760,415
+FacialLandmarking/original_images\michelle_yeoh.jpeg,nose,Landmark 4,759,449
+FacialLandmarking/original_images\michelle_yeoh.jpeg,nose,Landmark 5,730,466
+FacialLandmarking/original_images\michelle_yeoh.jpeg,nose,Landmark 6,747,471
+FacialLandmarking/original_images\michelle_yeoh.jpeg,nose,Landmark 7,764,474
+FacialLandmarking/original_images\michelle_yeoh.jpeg,nose,Landmark 8,784,467
+FacialLandmarking/original_images\michelle_yeoh.jpeg,nose,Landmark 9,803,460
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 1,663,359
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 2,682,348
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 3,703,348
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 4,721,364
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 5,702,365
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 6,681,366
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 7,812,355
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 8,831,336
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 9,852,332
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 10,871,342
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 11,856,351
+FacialLandmarking/original_images\michelle_yeoh.jpeg,eyes,Landmark 12,835,354
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 1,709,517
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 2,731,512
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 3,752,507
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 4,770,510
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 5,788,503
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 6,816,504
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 7,849,503
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 8,820,531
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 9,794,546
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 10,774,551
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 11,755,550
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 12,733,541
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 13,719,520
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 14,753,525
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 15,771,525
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 16,790,521
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 17,839,508
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 18,792,523
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 19,772,528
+FacialLandmarking/original_images\michelle_yeoh.jpeg,lips,Landmark 20,754,527
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 1,82,244
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 2,78,279
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 3,76,315
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 4,76,352
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 5,85,387
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 6,104,419
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 7,131,446
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 8,163,466
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 9,199,476
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 10,233,472
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 11,265,455
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 12,293,432
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 13,314,406
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 14,329,377
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 15,339,346
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 16,344,315
+FacialLandmarking/original_images\queen_latifah.jpeg,jawline,Landmark 17,348,284
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 1,114,222
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 2,136,211
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 3,161,213
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 4,184,222
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 5,206,235
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 6,255,240
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 7,278,233
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 8,301,230
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 9,322,234
+FacialLandmarking/original_images\queen_latifah.jpeg,eyebrows,Landmark 10,338,249
+FacialLandmarking/original_images\queen_latifah.jpeg,nose,Landmark 1,229,260
+FacialLandmarking/original_images\queen_latifah.jpeg,nose,Landmark 2,227,281
+FacialLandmarking/original_images\queen_latifah.jpeg,nose,Landmark 3,226,301
+FacialLandmarking/original_images\queen_latifah.jpeg,nose,Landmark 4,224,323
+FacialLandmarking/original_images\queen_latifah.jpeg,nose,Landmark 5,190,338
+FacialLandmarking/original_images\queen_latifah.jpeg,nose,Landmark 6,204,342
+FacialLandmarking/original_images\queen_latifah.jpeg,nose,Landmark 7,219,347
+FacialLandmarking/original_images\queen_latifah.jpeg,nose,Landmark 8,233,346
+FacialLandmarking/original_images\queen_latifah.jpeg,nose,Landmark 9,247,346
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 1,139,253
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 2,156,249
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 3,173,252
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 4,187,264
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 5,170,263
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 6,153,261
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 7,264,273
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 8,281,265
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 9,297,267
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 10,311,276
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 11,296,279
+FacialLandmarking/original_images\queen_latifah.jpeg,eyes,Landmark 12,280,277
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 1,146,370
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 2,175,368
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 3,200,367
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 4,215,372
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 5,232,371
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 6,252,377
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 7,273,383
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 8,248,407
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 9,226,416
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 10,208,416
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 11,191,412
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 12,167,398
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 13,155,374
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 14,197,379
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 15,213,382
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 16,230,383
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 17,263,385
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 18,228,396
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 19,211,397
+FacialLandmarking/original_images\queen_latifah.jpeg,lips,Landmark 20,194,393
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 1,289,194
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 2,291,217
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 3,296,241
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 4,302,264
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 5,310,288
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 6,324,308
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 7,343,325
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 8,363,340
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 9,384,344
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 10,407,340
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 11,429,326
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 12,448,310
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 13,464,290
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 14,473,266
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 15,478,241
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 16,481,215
+FacialLandmarking/original_images\Taylor Swift.jpeg,jawline,Landmark 17,481,190
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 1,296,176
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 2,307,168
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 3,323,167
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 4,338,171
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 5,353,176
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 6,389,173
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 7,407,168
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 8,425,167
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 9,444,168
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyebrows,Landmark 10,461,175
+FacialLandmarking/original_images\Taylor Swift.jpeg,nose,Landmark 1,374,192
+FacialLandmarking/original_images\Taylor Swift.jpeg,nose,Landmark 2,374,209
+FacialLandmarking/original_images\Taylor Swift.jpeg,nose,Landmark 3,374,227
+FacialLandmarking/original_images\Taylor Swift.jpeg,nose,Landmark 4,374,244
+FacialLandmarking/original_images\Taylor Swift.jpeg,nose,Landmark 5,362,255
+FacialLandmarking/original_images\Taylor Swift.jpeg,nose,Landmark 6,369,258
+FacialLandmarking/original_images\Taylor Swift.jpeg,nose,Landmark 7,376,259
+FacialLandmarking/original_images\Taylor Swift.jpeg,nose,Landmark 8,385,257
+FacialLandmarking/original_images\Taylor Swift.jpeg,nose,Landmark 9,393,255
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 1,317,193
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 2,328,188
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 3,341,188
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 4,352,197
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 5,340,199
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 6,327,199
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 7,404,196
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 8,415,187
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 9,428,186
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 10,441,192
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 11,430,197
+FacialLandmarking/original_images\Taylor Swift.jpeg,eyes,Landmark 12,417,198
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 1,346,287
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 2,358,280
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 3,370,275
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 4,379,278
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 5,387,275
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 6,401,279
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 7,417,284
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 8,403,300
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 9,390,307
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 10,380,308
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 11,370,307
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 12,358,301
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 13,351,287
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 14,370,282
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 15,379,283
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 16,388,282
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 17,411,285
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 18,388,293
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 19,379,295
+FacialLandmarking/original_images\Taylor Swift.jpeg,lips,Landmark 20,370,294

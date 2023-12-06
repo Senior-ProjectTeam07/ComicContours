@@ -2,23 +2,27 @@ import os
 from PIL import ImageTk
 import PIL.Image
 from tkinter import *
-
+import user_page as up
 # declare var for later use
 original_list = []
 processed_list = []
 
 
+def open_user_window(wind):
+    wind.destroy()
+    up.user_window()
+
+
 def get_photo_folder(type_photo):
     dir_path = ''
     if type_photo == "Original Photos":
-        dir_path = './Facial Landmarking/original_images'
+        dir_path = './FacialLandmarking/original_images'
     if type_photo == "Processed Photos":
-        dir_path = './Facial Landmarking/processed_images'
+        dir_path = './FacialLandmarking/processed_images'
     folder = os.listdir(dir_path)
     image_list = []
     num_images = 0
     for num_images, file in enumerate(folder):
-        print(file)
         img_path = os.path.join(dir_path, file)
         image = PIL.Image.open(img_path)
         resized_img = image.resize((500, 400))
@@ -213,7 +217,7 @@ def create_database():
     mb_dropdown = Menu(mb, tearoff=0)
     mb_dropdown.add_command(label="Logout")
     mb_dropdown.add_command(label="About")
-    mb_dropdown.add_command(label="Main Page")
+    mb_dropdown.add_command(label="Main Page",  command=lambda: open_user_window(window))
     mb.add_cascade(label="Menu", menu=mb_dropdown)
     window.config(menu=mb)
     orig_frame = Frame(window)
