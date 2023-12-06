@@ -5,8 +5,11 @@ from tkinter import messagebox
 import database_page as cd
 import login_page as lp
 import shutil
-import Augmentation_Project.Facial_Landmarking as Fl
-import Augmentation_Project.Augmenting_Features as Af
+import Augmentation_Project as ap
+# import Augmentation_Project
+# from Augmentation_Project.__init__ import Facial_Landmarking
+# from Augmentation_Project.__init__ import Augmenting_Features
+# import Augmentation_Project.Augmenting_Features as Af
 filename = ""
 
 
@@ -45,8 +48,8 @@ def create_caricature(fname, checked, text_box):
         text_box.config(state='disabled')
         filename = ''
         # call facial landmarking to update processed photo folder
-        Fl.main()
-        Af.main()
+        ap.Facial_Landmarking.main()
+        ap.Augmenting_Features.main()
 
 
 # Create user window

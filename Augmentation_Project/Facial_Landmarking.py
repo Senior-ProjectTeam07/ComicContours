@@ -4,8 +4,18 @@ import os
 import numpy as np
 import csv
 
+
+def get_dir(filename):
+    if "Augmentation_Project" in os.getcwd():
+        filename = os.path.join(os.getcwd(), filename)
+    else:
+        filename = os.path.join(os.getcwd(), ("Augmentation_Project/"+filename))
+    return filename
+
+
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("Augmentation_Project/shape_predictor_68_face_landmarks.dat")
+dat = get_dir("shape_predictor_68_face_landmarks.dat")
+predictor = dlib.shape_predictor(dat)
 
 
 def process_image_to_array(image_path, image_path_to_int, feature_to_int):
@@ -42,10 +52,10 @@ def save_array_to_csv(array, file_name):
 
 
 def main():
-    if not os.path.exists('Augmentation_Project/processed_images'):
-        os.makedirs('Augmentation_Project/processed_images')
+    if not os.path.exists(get_dir('processed_images')):
+        os.makedirs(get_dir('processed_images'))
 
-    image_directory = 'Augmentation_Project/original_images'
+    image_directory = get_dir('original_images')
     image_paths = [os.path.join(image_directory, filename) for filename in os.listdir(image_directory) if filename.lower().endswith(('.png', '.jpg', '.jpeg'))]
     image_path_to_int = {path: idx for idx, path in enumerate(image_paths)}
     feature_to_int = {'jawline': 0, 'eyebrows': 1, 'nose': 2, 'eyes': 3, 'lips': 4}
@@ -56,11 +66,11 @@ def main():
         all_features_list.append(features_array)
 
     all_features = np.vstack(all_features_list)
-    np.save('Augmentation_Project/facial_features.npy', all_features)
+    np.save(get_dir('facial_features.npy'), all_features)
 
-    save_array_to_csv(all_features, 'Augmentation_Project/facial_features.csv')
+    save_array_to_csv(all_features, get_dir('facial_features.csv'))
 
-    output_directory = 'Augmentation_Project/processed_images'
+    output_directory = os.path.abspath(get_dir('processed_images'))
     for path in image_paths:
         current_image_landmarks = all_features[all_features[:, 0] == image_path_to_int[path]]
         draw_landmarks_and_save(path, current_image_landmarks, output_directory)

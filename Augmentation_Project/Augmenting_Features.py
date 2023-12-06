@@ -3,6 +3,14 @@ import numpy as np
 import os
 
 
+def get_dir(filename):
+    if "Augmentation_Project" in os.getcwd():
+        filename = os.path.join(os.getcwd(), filename)
+    else:
+        filename = os.path.join(os.getcwd(), ("Augmentation_Project/"+filename))
+    return filename
+
+
 def load_feature_landmarks(facial_features, image_id, feature_to_int, feature_name):
     feature_landmarks = facial_features[
         (facial_features[:, 0] == image_id) & (facial_features[:, 1] == feature_to_int[feature_name])]
@@ -45,10 +53,10 @@ def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_f
 
 
 def main():
-    facial_features = np.load('Augmentation_Project/facial_features.npy')
+    facial_features = np.load(get_dir('facial_features.npy'))
     feature_to_int = {'jawline': 0, 'eyebrows': 1, 'nose': 2, 'eyes': 3, 'lips': 4}
-    image_directory = 'Augmentation_Project/original_images'
-    augmented_directory = 'Augmentation_Project/augmented_images'
+    image_directory = get_dir('original_images')
+    augmented_directory = get_dir('augmented_images')
     nose_scale_factor = 1.25
     eye_scale_factor = 0.80
 
