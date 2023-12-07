@@ -64,28 +64,28 @@ def open_forgot_password_window(event):
 def main():
     init_db()  # Initialize the database
     global window
+    # create main window
     window = Tk()
     window.title('Facial Feature Augmentation using GAN')
     window.geometry("400x150")
-
+    # Make a label for the window
     Label(window, text="Login").grid(row=0, column=0)
+    # Create label user info
     Label(window, text="Email").grid(row=1, column=1)
     Label(window, text="Password").grid(row=2, column=1)
     email_entry = Entry(window)
     email_entry.grid(row=1, column=2)
     password_entry = Entry(window, show="*")
     password_entry.grid(row=2, column=2)
-
     label = Label(window, text="Forgot Password?", font=('Times New Roman', 8))
     label.bind("<Button-1>", open_forgot_password_window)
     label.grid(row=3, column=1)
-
+    # Create login button, when pressed call open user window function
     login_button = Button(window, text='Login', width=25, command=lambda: open_user_window(window, email_entry.get(), password_entry.get()))
     login_button.grid(row=4, column=2)
-
     create_account_button = Button(window, text='Create Account', width=15, command=lambda: open_create_user_window(window))
     create_account_button.grid(row=5, column=1)
-
+    # Run forever
     window.mainloop()
 
 if __name__ == "__main__":
