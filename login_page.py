@@ -3,7 +3,7 @@ import bcrypt
 from tkinter import *
 import logging
 import createuser_page as cu
-import user_page as uw
+import user_page as up
 import forgotpassword_page as fp
 
 # Setup logging
@@ -47,7 +47,7 @@ def verify_credentials(email, password):
 def open_user_window(wind, email, password):
     if verify_credentials(email, password):
         wind.destroy()
-        uw.main(email)
+        up.main(email)
     else:
         error_label = Label(wind, text="Invalid credentials!", fg="red")
         error_label.grid(row=6, column=2)
