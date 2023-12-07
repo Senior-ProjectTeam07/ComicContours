@@ -2,6 +2,7 @@ import sqlite3
 import bcrypt
 from tkinter import *
 import logging
+import re
 import createuser_page as cu
 import user_page as up
 import forgotpassword_page as fp
@@ -25,8 +26,26 @@ def init_db():
     except sqlite3.Error as e:
         logging.error(f"Database initialization error: {e}")
 
+# Function to check password complexity
+def is_password_strong(password):
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long"
+    if not re.search("[a-z]", password):
+        return False, "Password must contain a lowercase letter"
+    if not re.search("[A-Z]", password):
+        return False, "Password must contain an uppercase letter"
+    if not re.search("[0-9]", password):
+        return False, "Password must contain a digit"
+    if not re.search("[_@$]", password):
+        return False, "Password must contain a special character (_, @, $)"
+    return True, ""
+
 # Function to hash a password using bcrypt
 def hash_password(password):
+    # Check password complexity
+    is_strong, message = is_password_strong(password)
+    if not is_strong:
+        raise ValueError(message)
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
 # Function to verify credentials
@@ -66,8 +85,8 @@ def main():
     global window
     # create main window
     window = Tk()
-    window.title('Facial Feature Augmentation using GAN')
-    window.geometry("400x150")
+    window.title('User Management System')
+    window.geometry("475x160")
     # Make a label for the window
     Label(window, text="Login").grid(row=0, column=0)
     # Create label user info
@@ -90,5 +109,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
