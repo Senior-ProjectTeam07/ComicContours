@@ -85,7 +85,7 @@ def main():
     global window
     # create main window
     window = Tk()
-    window.title('User Management System')
+    window.title('Facial Feature Augmentation using GAN')
     window.geometry("475x160")
     # Make a label for the window
     Label(window, text="Login").grid(row=0, column=0)
