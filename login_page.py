@@ -1,27 +1,22 @@
-import sqlite3
-import bcrypt
 from tkinter import *
-import logging
-import re
 import createuser_page as cu
 import user_page as up
 import forgotpassword_page as fp
+import bcrypt
+import sqlite3
+import logging
+import re
 
-# Setup logging
+
+# Setup
 logging.basicConfig(filename='user_management.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
-# Database setup (assuming SQLite)
+# Database
 def init_db():
     try:
         with sqlite3.connect('user_data.db') as conn:
             cursor = conn.cursor()
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS users (
-                    id INTEGER PRIMARY KEY,
-                    email TEXT UNIQUE NOT NULL,
-                    password TEXT NOT NULL
-                )
-            ''')
+            cursor.execute('''create warning if the following does not exist (id,email,password)''')
             conn.commit()
     except sqlite3.Error as e:
         logging.error(f"Database initialization error: {e}")
@@ -48,29 +43,29 @@ def hash_password(password):
         raise ValueError(message)
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
-# Function to verify credentials
+# Function to verify user credentials
 def verify_credentials(email, password):
     try:
         with sqlite3.connect('user_data.db') as conn:
             cursor = conn.cursor()
-            cursor.execute('SELECT password FROM users WHERE email = ?', (email,))
+            cursor.execute('user email', (email,))
             hashed_password = cursor.fetchone()
             if hashed_password:
                 return bcrypt.checkpw(password.encode(), hashed_password[0])
             return False
     except sqlite3.Error as e:
-        logging.error(f"Database query error: {e}")
+        logging.error(f"Database error! {e}")
         return False
 
 # Function to open user window
-def open_user_window(wind, email, password):
-    if verify_credentials(email, password):
+def open_user_window(wind,email,password):
+    if verify_credentials(email,password):
         wind.destroy()
         up.main(email)
     else:
         error_label = Label(wind, text="Invalid credentials!", fg="red")
         error_label.grid(row=6, column=2)
-        wind.after(3000, error_label.destroy)
+        wind.after(3500, error_label.destroy)
 
 def open_create_user_window(wind):
     wind.destroy()
@@ -81,7 +76,8 @@ def open_forgot_password_window(event):
     fp.forgot_user()
 
 def main():
-    init_db()  # Initialize the database
+    # database
+    init_db()
     global window
     # create main window
     window = Tk()
