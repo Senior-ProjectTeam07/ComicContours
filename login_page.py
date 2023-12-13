@@ -12,14 +12,14 @@ import re
 logging.basicConfig(filename='user_management.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 # Database
-def init_db():
+def init_user_data():
     try:
-        with sqlite3.connect('user_data.db') as conn:
-            cursor = conn.cursor()
-            cursor.execute('''create warning if the following does not exist (id,email,password)''')
-            conn.commit()
-    except sqlite3.Error as e:
-        logging.error(f"Database initialization error: {e}")
+        with sqlite3.connect('user_data.db') as user:
+            cursor = user.cursor()
+            cursor.execute('''create warning if does not exist id,email,password''')
+            user.commit()
+    except sqlite3.Error as error:
+        logging.error(f"Database error: {error}")
 
 # Function to check password complexity
 def is_password_strong(password):
@@ -77,7 +77,7 @@ def open_forgot_password_window(event):
 
 def main():
     # database
-    init_db()
+    init_user_data()
     global window
     # create main window
     window = Tk()
