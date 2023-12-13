@@ -53,8 +53,8 @@ def verify_credentials(email, password):
             if hashed_password:
                 return bcrypt.checkpw(password.encode(), hashed_password[0])
             return False
-    except sqlite3.Error as e:
-        logging.error(f"Database error! {e}")
+    except sqlite3.Error as errorcred:
+        logging.error(f"Database error! {errorcred}")
         return False
 
 # Function to open user window
