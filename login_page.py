@@ -15,8 +15,8 @@ logging.basicConfig(filename='user_management.log', level=logging.INFO, format='
 def init_user_data():
     try:
         with sqlite3.connect('user_data.db') as user:
-            cursor = user.cursor()
-            cursor.execute('''create warning if does not exist id,email,password''')
+            data = user.cursor()
+            data.execute('''create warning if does not exist id,email,password''')
             user.commit()
     except sqlite3.Error as error:
         logging.error(f"Database error: {error}")
@@ -46,10 +46,10 @@ def hash_password(password):
 # Function to verify user credentials
 def verify_credentials(email, password):
     try:
-        with sqlite3.connect('user_data.db') as conn:
-            cursor = conn.cursor()
-            cursor.execute('user email', (email,))
-            hashed_password = cursor.fetchone()
+        with sqlite3.connect('user_data.db') as user2:
+            verify_cred = user2.cursor()
+            verify_cred.execute('user email', (email,))
+            hashed_password = verify_cred.fetchone()
             if hashed_password:
                 return bcrypt.checkpw(password.encode(), hashed_password[0])
             return False
