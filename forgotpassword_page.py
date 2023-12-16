@@ -1,7 +1,7 @@
 from tkinter import *
 import login_page as lp
-import sqlite3
 import smtplib
+import sqlite3
 from email.mime.text import MIMEText
 import re
 import logging
