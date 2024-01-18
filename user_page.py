@@ -6,10 +6,6 @@ import database_page as cd
 import login_page as lp
 import shutil
 import Augmentation_Project as ap
-# import Augmentation_Project
-# from Augmentation_Project.__init__ import Facial_Landmarking
-# from Augmentation_Project.__init__ import Augmenting_Features
-# import Augmentation_Project.Augmenting_Features as Af
 filename = ""
 
 

@@ -1,84 +1,99 @@
 import user_page as up
+import login_page as lp
 from tkinter import *
 import bcrypt
 import sqlite3
 import re
-import logging
 
-# Setup
-logging.basicConfig(filename='user_management.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
-# Initialize database
-def init_create_user():
-    try:
-        user = sqlite3.connect('user_data.db')
-        create_user = user.cursor()
-        create_user.execute('''warning if does not exist id,email,password''')
-        user.commit()
-    except sqlite3.Error as error:
-        logging.error(f"Database error: {error}")
-    finally:
-        user.close()
+# Database
+def make_user_database():
+    connection = sqlite3.connect('user_data.db')
+    user = connection.cursor()
+    user.execute('''CREATE TABLE IF NOT EXISTS 'users' (id text, email text, password text, unique(email)''')
+    connection.commit()
+
 
 # Function to hash a password
 def hash_password(password):
-    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
 
 # Function to add a new user to the database
-def add_user_data(name, email, hashed_password):
+def add_user_data(window, name, email, hashed_password):
+    conn = sqlite3.connect('user_data.db')
+    new_user = conn.cursor()
     try:
-        user2 = sqlite3.connect('user_data.db')
-        new_user = user2.cursor()
-        new_user.execute('data name, email, password', (name, email, hashed_password))
-        user2.commit()
-    except sqlite3.IntegrityError as error2:
-        logging.error(f"Logging error: {error2}")
-        return False
-    finally:
-        user2.close()
+        new_user.execute("INSERT Into users VALUES(?,?,?)", [name, email, hashed_password])
+    except sqlite3.Error:
+        show_message(window, "Error: Email already in use", "red")
+
+    conn.commit()
+    conn.close()
     return True
+
 
 # Function to validate email format
 def is_valid_email(email):
     return re.match(r"[^@]+@[^@]+\.[^@]+", email)
 
+
 # Function to validate password strength
-def is_strong_password(password):
-    return (len(password) >= 8 and
-            any(char.isdigit() for char in password) and
-            any(char.isupper() for char in password) and
-            any(char.islower() for char in password) and
-            re.search("[!@#$%^&*(),.?\":{}|<>]", password))
+def is_password_strong(password):
+    # Set special characters that are acceptable
+    special_char = "!@#$%^&*()_+-=<>?"
+    # checks to see if length greater or equal to 8
+    # any character in password is digit, uppercase, lowercase, and special character
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long"
+    if not(any(char.isdigit() for char in password)):
+        return False, "Password must contain a digit"
+    if not(any(char.isupper() for char in password)):
+        return False, "Password must contain a lowercase letter"
+    if not(any(char.islower() for char in password)):
+        return False, "Password must contain an uppercase letter"
+    if not(any(char in special_char for char in password)):
+        return False, "Password must contain a special character"
+    return True, ""
+
 
 # Function to show a message
-def show_message(window, message, color="black"):
+def show_message(window, message, color):
     message_label = Label(window, text=message, fg=color)
     message_label.grid(row=6, column=1, columnspan=2)
     window.after(3000, message_label.destroy)
 
+
+def open_user_page(window):
+    window.destroy()
+    up.main()
+
+
 # Modified function to create account
-def create_account(window, name, email, password, verify_password):
-    if not all([name, email, password, verify_password]):
-        show_message(window, "Please fill in all fields.", "red")
-        return
-
-    if not is_valid_email(email):
-        show_message(window, "Invalid email format.", "red")
-        return
-
-    if not is_strong_password(password):
-        show_message(window, "Password too weak.", "red")
-        return
-
-    if password != verify_password:
-        show_message(window, "Passwords do not match.", "red")
-        return
-
+def create_account(win, name, email, password, verify_password):
+    is_strong, message = is_password_strong(password)
     hashed_password = hash_password(password)
-    if add_user_data(name, email, hashed_password):
-        show_message(window, "Account successfully created.", "green")
+    if not all([name, email, password, verify_password]):
+        show_message(win, "Please fill in all fields.", "red")
+    elif not is_valid_email(email):
+        show_message(win, "Invalid email format.", "red")
+    elif is_strong is False:
+        show_message(win, message, "red")
+    elif password != verify_password:
+        show_message(win, "Passwords do not match.", "red")
+    elif add_user_data(win, name, email, hashed_password):
+        show_message(win, "Account successfully created.", "green")
+        win.destroy()
+        up.main()
+        return
     else:
-        show_message(window, "Email already in use.", "red")
+        show_message(win, "Email already in use.", "red")
+
+
+def open_login_window(win):
+    win.destroy()
+    lp.main()
+
 
 # Function to create user
 def create_user():
@@ -104,11 +119,13 @@ def create_user():
     # Create login button, when pressed call open user window function
     create_button = Button(window, text='Create Account', width=15, command=lambda: create_account(window, name_entry.get(), email_entry.get(), password_entry.get(), verify_password_entry.get()))
     create_button.grid(row=5, column=2)
+    label = Label(window, text="Return to login page", font=('Times New Roman', 8))
+    label.bind("<Button-1>", lambda e: open_login_window(window))
+    label.grid(row=6, column=2)
     # Run forever
     window.mainloop()
 
+
 if __name__ == "__main__":
-    init_create_user()
+    make_user_database()
     create_user()
-
-
