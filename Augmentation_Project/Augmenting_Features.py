@@ -51,8 +51,7 @@ def load_feature_landmarks(facial_features, image_id, feature_to_int, feature_na
 
 def resize_nose(img, facial_features, image_id, feature_to_int, scale_factor):
     nose_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'nose')
-    return resize_and_overlay_feature(img, nose_landmarks, scale_factor, width_margin_factor=0.8,
-
+    return resize_and_overlay_feature(img, nose_landmarks, scale_factor, width_margin_factor=0.6,
                                       height_margin_factor=0.7)
 
 
@@ -103,8 +102,6 @@ def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_f
     # Calculates the overlay starting vertical margin for where the resized feature should be placed.
     # Discarding the fractional part to ensure whole integers for coordinates.
     overlay_start_y = y_min + (feature_height - scaled_height) // 2
-
-    # Places resized image over the original image.
     img[overlay_start_y:overlay_start_y + scaled_height,
     overlay_start_x:overlay_start_x + scaled_width] = scaled_feature
     return img
@@ -162,7 +159,7 @@ def main():
         nose_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'nose')
 
         # the margins here for the mask affect where the bounds of the box are.
-        nose_mask = create_nose_mask(original_img, nose_landmarks, width_margin_factor=0.4, height_margin_factor=0.075)
+        nose_mask = create_nose_mask(original_img, nose_landmarks, width_margin_factor=0.4, height_margin_factor=0.1)
 
         # blurs the nose region, the kernel size changes the blur amount
         # ksize (0,0)  -> (width, height)
