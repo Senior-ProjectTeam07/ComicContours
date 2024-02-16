@@ -1,11 +1,18 @@
+if __name__ == '__main__' and __package__ is None:
+    from os import sys, path
+    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+
 import os.path
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
-import database.database_page as cd
-import database.login_page as lp
+import database_page as cd
+import login_page as lp
 import shutil
-import augmentation as ap
+import landmarking as fl
+import augmentation as af
+
+# from augmentation import Augmenting_Features as ap
 filename = ""
 
 
@@ -37,15 +44,15 @@ def create_caricature(fname, checked, text_box):
     if checked is False:
         messagebox.showerror('Error', 'Error: Please check consent box!')
     if not(fname == '') and (checked is True):
-        folder = os.path.abspath("./Augmentation_Project/original_images")
+        folder = os.path.abspath("./data/original_images")
         shutil.copy(fname, folder)
         text_box.config(state='normal')
         text_box.delete("1.0", "end")
         text_box.config(state='disabled')
         filename = ''
         # call facial landmarking to update processed photo folder
-        ap.Facial_Landmarking.main()
-        ap.Augmenting_Features.main()
+        fl.Facial_Landmarking.main()
+        af.Augmenting_Features.main()
 
 
 # Create user window

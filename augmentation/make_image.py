@@ -1,7 +1,7 @@
 # make_image.py
 import cv2
 import numpy as np
-from augmentation import multiply_eye_mask
+from .eyes import multiply_eye_mask
 
 # Calculates inverse mask and reduces size of image. Then multiplies mask and image together.
 def make_img(img, mask, face_landmarks, eyebrow_landmarks, face_img, type_mask):

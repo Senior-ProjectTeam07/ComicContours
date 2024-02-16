@@ -1,5 +1,5 @@
-import database.user_page as up
-import database.login_page as lp
+import user_page as up
+import login_page as lp
 from tkinter import *
 import bcrypt
 import sqlite3

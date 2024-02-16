@@ -2,8 +2,8 @@ import os
 from PIL import ImageTk
 import PIL.Image
 from tkinter import *
-import database.user_page as up
-import database.login_page as ip
+import user_page as up
+import login_page as ip
 original_list, processed_list, augmented_list = [], [], []
 
 

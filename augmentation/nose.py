@@ -1,7 +1,7 @@
 # nose.py
 import numpy as np
 from landmarking import load_feature_landmarks
-from augmentation import resize_and_overlay_feature
+from .resize_overlay import resize_and_overlay_feature
 
 '''
  This function is responsible for resizing the nose.

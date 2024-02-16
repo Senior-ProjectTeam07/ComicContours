@@ -1,4 +1,5 @@
 import numpy as np
+from utils import get_dir
 
 def calc_dist(pt1, pt2):
     return np.sqrt((pt1[0] - pt2[0])**2 + (pt1[1] - pt2[1])**2)
@@ -49,5 +50,6 @@ def print_sizes_and_devs(features):
             print(f"    Average size for {region}: {size}")
             print(f"    Standard deviation for {region}: {std_devs[region]}")
 
-features = np.load('facial_features.npy')
+features = np.load(get_dir("data/facial_features.npy"))
 print_sizes_and_devs(features)
+

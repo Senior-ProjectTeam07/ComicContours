@@ -2,7 +2,9 @@
 import cv2
 import numpy as np
 import os
-from augmentation import resize_nose, create_eye_mask, create_nose_mask, make_img
+from .nose import resize_nose, create_nose_mask
+from .eyes import create_eye_mask
+from .make_image import make_img
 from landmarking import load_feature_landmarks
 from utils import get_dir
 
