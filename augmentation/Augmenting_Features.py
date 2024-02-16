@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import os
 from landmarking import load_feature_landmarks, resize_and_overlay_feature
+from utils import get_dir
 
 '''
 Name: Rhiannon Barber
@@ -19,16 +20,6 @@ working correctly.
 
 In line comments have more detail on how certain things are working. 
 '''
-
-
-# This function constructs a file path for the specific directory.
-def get_dir(filename):
-    if "Augmentation_Project" in os.getcwd():
-        filename = os.path.join(os.getcwd(), filename)
-    else:
-        filename = os.path.join(os.getcwd(), ("Augmentation_Project/" + filename))
-    return filename
-
 
 '''
 This function loads the land markings found from the .npy file
