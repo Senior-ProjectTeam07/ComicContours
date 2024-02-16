@@ -1,5 +1,5 @@
 from tkinter import *
-import login_page as lp
+import database.login_page as lp
 import smtplib
 import sqlite3
 import bcrypt

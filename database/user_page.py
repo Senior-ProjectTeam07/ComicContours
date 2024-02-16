@@ -2,10 +2,10 @@ import os.path
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
-import database_page as cd
-import login_page as lp
+import database.database_page as cd
+import database.login_page as lp
 import shutil
-import Augmentation_Project as ap
+import augmentation as ap
 filename = ""
 
 

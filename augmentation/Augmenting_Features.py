@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import os
+from landmarking import load_feature_landmarks, resize_and_overlay_feature
 
 '''
 Name: Rhiannon Barber
@@ -199,10 +200,10 @@ def make_img(img, mask, face_landmarks, eyebrow_landmarks, face_img, type_mask):
 
 
 def main():
-    facial_features = np.load(get_dir('facial_features.npy'))
+    facial_features = np.load(get_dir('data/facial_features.npy'))
     feature_to_int = {'jawline': 0, 'eyebrows': 1, 'nose': 2, 'eyes': 3, 'lips': 4}
-    image_directory = get_dir('original_images')
-    augmented_directory = get_dir('augmented_images')
+    image_directory = get_dir('data/original_images')
+    augmented_directory = get_dir('data/augmented_images')
     nose_scale_factor = 1.25
 
     if not os.path.exists(augmented_directory):

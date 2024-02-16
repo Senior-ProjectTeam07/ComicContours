@@ -1,7 +1,7 @@
 from tkinter import *
-import createuser_page as cu
-import user_page as up
-import forgotpassword_page as fp
+import database.createuser_page as cu
+import database.user_page as up
+import database.forgotpassword_page as fp
 import bcrypt
 import sqlite3
 
