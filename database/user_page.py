@@ -1,30 +1,27 @@
-if __name__ == '__main__' and __package__ is None:
-    from os import sys, path
-    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+# user_page.py
 
-import os.path
-from tkinter import *
-from tkinter import filedialog
-from tkinter import messagebox
-import database_page as cd
-import login_page as lp
+from tkinter import Tk, Label, Button, E, W, INSERT, Text, filedialog, Checkbutton, BooleanVar, messagebox, Menu
 import shutil
-import landmarking as fl
-import augmentation as af
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+import os.path
+import database.database_page as cd
+import database.login_page as lp
+import landmarking.landmark as fl
+import augmentation.augment as af
 
-# from augmentation import Augmenting_Features as ap
 filename = ""
-
 
 def open_database(wind):
     wind.destroy()
     cd.main()
 
-
 def open_login(wind):
     wind.destroy()
     lp.main()
-
 
 def browse_files(text):
     global filename
@@ -34,7 +31,6 @@ def browse_files(text):
     text.insert(INSERT, filename)
     text.config(state='disabled')
     return filename
-
 
 def create_caricature(fname, checked, text_box):
     global filename
@@ -51,9 +47,8 @@ def create_caricature(fname, checked, text_box):
         text_box.config(state='disabled')
         filename = ''
         # call facial landmarking to update processed photo folder
-        fl.Facial_Landmarking.main()
-        af.Augmenting_Features.main()
-
+        fl.main()
+        af.main()
 
 # Create user window
 def main():
@@ -85,7 +80,6 @@ def main():
     button.grid(row=12, column=1, pady=10, padx=10, sticky=E)
     # Run forever
     window.mainloop()
-
 
 if __name__ == "__main__":
     main()

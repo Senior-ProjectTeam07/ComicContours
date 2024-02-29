@@ -1,5 +1,12 @@
+# Facial_Landmarking_Math.py
+
 import numpy as np
-from utils import get_dir
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+from utils.file_utils import get_dir
 
 def calc_dist(pt1, pt2):
     return np.sqrt((pt1[0] - pt2[0])**2 + (pt1[1] - pt2[1])**2)

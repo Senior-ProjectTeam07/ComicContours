@@ -1,10 +1,16 @@
-import user_page as up
-import login_page as lp
-from tkinter import *
+# create_user_page.py
+
+import tkinter as tk
 import bcrypt
 import sqlite3
 import re
-
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+import database.user_page as up
+import database.login_page as lp
 
 # Database
 def make_user_database():
@@ -13,11 +19,9 @@ def make_user_database():
     user.execute('''CREATE TABLE IF NOT EXISTS 'users' (id text, email text, password text, unique(email)''')
     connection.commit()
 
-
 # Function to hash a password
 def hash_password(password):
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
 
 # Function to add a new user to the database
 def add_user_data(window, name, email, hashed_password):
@@ -32,11 +36,9 @@ def add_user_data(window, name, email, hashed_password):
     conn.close()
     return True
 
-
 # Function to validate email format
 def is_valid_email(email):
     return re.match(r"[^@]+@[^@]+\.[^@]+", email)
-
 
 # Function to validate password strength
 def is_password_strong(password):
@@ -56,18 +58,15 @@ def is_password_strong(password):
         return False, "Password must contain a special character"
     return True, ""
 
-
 # Function to show a message
 def show_message(window, message, color):
-    message_label = Label(window, text=message, fg=color)
+    message_label = tk.Label(window, text=message, fg=color)
     message_label.grid(row=6, column=1, columnspan=2)
     window.after(3000, message_label.destroy)
-
 
 def open_user_page(window):
     window.destroy()
     up.main()
-
 
 # Modified function to create account
 def create_account(win, name, email, password, verify_password):
@@ -89,42 +88,39 @@ def create_account(win, name, email, password, verify_password):
     else:
         show_message(win, "Email already in use.", "red")
 
-
 def open_login_window(win):
     win.destroy()
     lp.main()
 
-
 # Function to create user
 def create_user():
     # create main window
-    window = Tk()
+    window = tk.Tk()
     window.title('Facial Feature Augmentation using GAN')
     window.geometry("400x200")
     # Make a label for the window
-    Label(window, text="Create User").grid(row=0)
+    tk.Label(window, text="Create User").grid(row=0)
     # Create label user info
-    Label(window, text="Name").grid(row=1, column=1)
-    Label(window, text="Email").grid(row=2, column=1)
-    Label(window, text="Password").grid(row=3, column=1)
-    Label(window, text="Verify Password").grid(row=4, column=1)
-    name_entry = Entry(window)
+    tk.Label(window, text="Name").grid(row=1, column=1)
+    tk.Label(window, text="Email").grid(row=2, column=1)
+    tk.Label(window, text="Password").grid(row=3, column=1)
+    tk.Label(window, text="Verify Password").grid(row=4, column=1)
+    name_entry = tk.Entry(window)
     name_entry.grid(row=1, column=2)
-    email_entry = Entry(window)
+    email_entry = tk.Entry(window)
     email_entry.grid(row=2, column=2)
-    password_entry = Entry(window, show="*")
+    password_entry = tk.Entry(window, show="*")
     password_entry.grid(row=3, column=2)
-    verify_password_entry = Entry(window, show="*")
+    verify_password_entry = tk.Entry(window, show="*")
     verify_password_entry.grid(row=4, column=2)
     # Create login button, when pressed call open user window function
-    create_button = Button(window, text='Create Account', width=15, command=lambda: create_account(window, name_entry.get(), email_entry.get(), password_entry.get(), verify_password_entry.get()))
+    create_button = tk.Button(window, text='Create Account', width=15, command=lambda: create_account(window, name_entry.get(), email_entry.get(), password_entry.get(), verify_password_entry.get()))
     create_button.grid(row=5, column=2)
-    label = Label(window, text="Return to login page", font=('Times New Roman', 8))
+    label = tk.Label(window, text="Return to login page", font=('Times New Roman', 8))
     label.bind("<Button-1>", lambda e: open_login_window(window))
     label.grid(row=6, column=2)
     # Run forever
     window.mainloop()
-
 
 if __name__ == "__main__":
     make_user_database()

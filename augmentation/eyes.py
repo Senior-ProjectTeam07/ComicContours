@@ -1,8 +1,14 @@
 # eyes.py 
+
 import cv2
 import numpy as np
-from landmarking import load_feature_landmarks
-from .resize_overlay import resize_and_overlay_feature
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+from landmarking.load import load_feature_landmarks
+from augmentation.resize_overlay import resize_and_overlay_feature
 
 '''
 Similar to resize nose, but for eyes.

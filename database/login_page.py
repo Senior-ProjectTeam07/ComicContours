@@ -1,10 +1,16 @@
-from tkinter import *
-import createuser_page as cu
-import user_page as up
-import forgotpassword_page as fp
+# login_page.py
+
+from tkinter import Tk, Label, Entry, Button
 import bcrypt
 import sqlite3
-
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+import database.createuser_page as cu
+import database.user_page as up
+import database.forgotpassword_page as fp
 
 # Make database if not exist
 def make_user_database():

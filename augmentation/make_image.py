@@ -1,7 +1,13 @@
 # make_image.py
+
 import cv2
 import numpy as np
-from .eyes import multiply_eye_mask
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+from augmentation.eyes import multiply_eye_mask
 
 # Calculates inverse mask and reduces size of image. Then multiplies mask and image together.
 def make_img(img, mask, face_landmarks, eyebrow_landmarks, face_img, type_mask):

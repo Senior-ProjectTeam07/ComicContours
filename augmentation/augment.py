@@ -1,12 +1,17 @@
 # Augmenting_Features.py
+
 import cv2
 import numpy as np
+import sys
 import os
-from .nose import resize_nose, create_nose_mask
-from .eyes import create_eye_mask
-from .make_image import make_img
-from landmarking import load_feature_landmarks
-from utils import get_dir
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+from augmentation.nose import resize_nose, create_nose_mask
+from augmentation.eyes import create_eye_mask
+from augmentation.make_image import make_img
+from landmarking.load import load_feature_landmarks
+from utils.file_utils import get_dir
 
 def main():
     facial_features = np.load(get_dir('data/facial_features.npy'))

@@ -1,9 +1,15 @@
+# Facial_Landmarking.py
+
 import dlib
 import cv2
-import os
 import numpy as np
 import csv
-from utils import get_dir
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+from utils.file_utils import get_dir
 
 detector = dlib.get_frontal_face_detector()
 dat = get_dir("landmarking/shape_predictor_68_face_landmarks.dat")
