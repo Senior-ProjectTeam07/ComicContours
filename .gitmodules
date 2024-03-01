@@ -1,0 +1,3 @@
+[submodule "StyleCariGAN"]
+	path = StyleCariGAN
+	url = https://github.com/Senior-ProjectTeam07/StyleCariGAN.git

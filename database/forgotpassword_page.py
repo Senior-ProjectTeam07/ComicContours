@@ -1,12 +1,18 @@
-from tkinter import *
-import login_page as lp
+# forgotpassword_page.py
+
+from tkinter import Tk, Label, Entry, Button
 import smtplib
 import sqlite3
 import bcrypt
 from email.message import EmailMessage
 import secrets
 import re
-
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+import database.login_page as lp
 
 # Make database if not exist
 def make_user_database():

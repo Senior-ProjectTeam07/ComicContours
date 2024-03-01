@@ -1,11 +1,16 @@
-import os
+
 from PIL import ImageTk
 import PIL.Image
-from tkinter import *
+from tkinter import Tk, Label, Button, Frame, Canvas, Scrollbar, DISABLED, Menu
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
 import user_page as up
 import login_page as ip
-original_list, processed_list, augmented_list = [], [], []
 
+original_list, processed_list, augmented_list = [], [], []
 
 def open_user_window(wind):
     wind.destroy()

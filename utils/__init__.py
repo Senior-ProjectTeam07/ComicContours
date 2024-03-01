@@ -1,3 +1,3 @@
 # __init.py__ for utils package
 
-from .file_utils import *
+from utils.file_utils import get_dir
