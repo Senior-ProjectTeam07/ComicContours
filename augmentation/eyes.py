@@ -9,7 +9,7 @@ parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
 from landmarking.load import load_feature_landmarks
 from augmentation.resize_overlay import resize_and_overlay_feature
-from utils.img_utils import alpha_blend
+from utils.img_utils import multi_res_blend, poisson_blend
 
 def resize_eyes(img, facial_features, image_id, feature_to_int, scale_factor):
     '''
@@ -21,7 +21,19 @@ def resize_eyes(img, facial_features, image_id, feature_to_int, scale_factor):
     return resize_and_overlay_feature(img, eye_landmarks, scale_factor, width_margin_factor=0.25,
                                       height_margin_factor=0.4)
 
+def resize_eyes(img, facial_features, image_id, feature_to_int, scale_factor):
+    try:
+        eye_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'eyes')
+        if eye_landmarks.size == 0:
+            raise ValueError("No eye landmarks found for the given image ID.")
+    except Exception as e:
+        raise ValueError(f"Error loading eye landmarks: {e}")
 
+    try:
+        return resize_and_overlay_feature(img, eye_landmarks, scale_factor, width_margin_factor=0.6, height_margin_factor=0.7)
+    except Exception as e:
+        raise ValueError(f"Error resizing and overlaying eye feature: {e}")
+    
 def create_eye_mask(eye_landmarks1, eye_landmarks2, img):
     '''
     This function creates a mask where the area around the mask is white, to indicate the ROI. 
@@ -57,5 +69,34 @@ def multiply_eye_mask(mask, inverse_mask, eye, face):
     just_face = cv2.multiply(inverse_mask, face)
     # Ensure just_eye and just_face have the same type
     just_eye = just_eye.astype(just_face.dtype)
-    result = alpha_blend(just_eye, just_face, mask)
+    # Add face and eye
+    result = cv2.add(just_face, just_eye)
     return result
+
+'''
+def multiply_eye_mask(mask, inverse_mask, eye, face):
+
+    This function puts the image in the mask and puts an image in the inverse mask. For mask it puts a reduced image 
+    of the eyes in the mask. While for mask2 it puts a blended image in the mask2 and 
+    the normal image in each ones inverse mask.
+
+    # Ensure mask and inverse_mask have the same type as eye and face
+    mask = mask.astype(eye.dtype)
+    inverse_mask = inverse_mask.astype(face.dtype)
+    # Perform blending
+    just_eye = cv2.multiply(mask, eye)
+    just_face = cv2.multiply(inverse_mask, face)
+    # Ensure just_eye and just_face have the same type
+    just_eye = just_eye.astype(just_face.dtype)
+    result = just_face + just_eye  # Add face and eye
+    return result
+
+
+
+def multiply_eye_mask(mask, inverse_mask, eye, face):
+    # Multiply eyes and face by the mask
+    just_eye = cv2.multiply(mask, eye)
+    just_face = cv2.multiply(inverse_mask, face)
+    result = just_face + just_eye  # Add face and eye
+    return result
+'''

@@ -1,6 +1,7 @@
 # nose.py
 
 import numpy as np
+import cv2
 import sys
 import os
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -8,6 +9,7 @@ parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
 from landmarking.load import load_feature_landmarks
 from augmentation.resize_overlay import resize_and_overlay_feature
+from utils.img_utils import multi_res_blend, poisson_blend
 
 
 def resize_nose(img, facial_features, image_id, feature_to_int, scale_factor):
@@ -69,3 +71,25 @@ def create_nose_mask(img, feature_points, width_margin_factor, height_margin_fac
     mask[y_min:y_max, x_min:x_max] = 255
     
     return mask
+
+def multiply_nose_mask(nose_mask1, nose_mask2, img, original_img):
+    # Convert the masks to float32 and normalize them to the range [0, 1]
+    nose_mask1 = nose_mask1.astype(np.float32) / 255
+    nose_mask2 = nose_mask2.astype(np.float32) / 255
+
+    # Create the inverse masks
+    inverse_nose_mask1 = 1 - nose_mask1
+    inverse_nose_mask2 = 1 - nose_mask2
+
+    # Multiply the image with the masks and the inverse masks
+    img1 = cv2.multiply(img, nose_mask1[:, :, None])
+    img2 = cv2.multiply(img, nose_mask2[:, :, None])
+    original_img1 = cv2.multiply(original_img, inverse_nose_mask1[:, :, None])
+    original_img2 = cv2.multiply(original_img, inverse_nose_mask2[:, :, None])
+
+    # Add the images to create the final result
+    result = cv2.add(img1, original_img1)
+    result = cv2.add(result, img2)
+    result = cv2.add(result, original_img2)
+
+    return result

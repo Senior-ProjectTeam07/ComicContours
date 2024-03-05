@@ -9,7 +9,7 @@ import os
 current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
-from utils.img_utils import rgb_to_ycbcr, ycbcr_to_rgb, dynamic_range_compression, equalize_grayscale, match_histograms, equalize_color, create_feathered_mask, alpha_blend
+from utils.img_utils import rgb_to_ycbcr, ycbcr_to_rgb, dynamic_range_compression, equalize_grayscale, match_histograms, equalize_color, alpha_blend
 
 class TestImageUtils(unittest.TestCase):
     def setUp(self):

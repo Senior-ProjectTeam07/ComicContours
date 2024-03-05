@@ -8,8 +8,23 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
 from augmentation.eyes import multiply_eye_mask
+from utils.img_utils import poisson_blend
 
-def prepare_mask(mask):
+def check_inputs(img, mask, face_landmarks, eyebrow_landmarks, face_img, type_mask):
+    if img is None:
+        raise ValueError("Input image cannot be None.")
+    if mask is None:
+        raise ValueError("Mask cannot be None.")
+    if face_landmarks is None:
+        raise ValueError("Face landmarks cannot be None.")
+    if eyebrow_landmarks is None:
+        raise ValueError("Eyebrow landmarks cannot be None.")
+    if face_img is None:
+        raise ValueError("Face image cannot be None.")
+    if type_mask is None:
+        raise ValueError("Type mask cannot be None.")
+
+def prepare_masks(mask):
     if len(mask.shape) == 2:  # mask is grayscale
         mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)  # Convert grayscale mask to BGR
     inverse_mask = cv2.bitwise_not(mask)  # Calculate inverse mask
@@ -19,33 +34,43 @@ def prepare_mask(mask):
     inverse_mask = inverse_mask.astype(float)/255
     return mask, inverse_mask
 
-def make_eye_img(img, mask, face_landmarks, eyebrow_landmarks, face_img):
-    mask, inverse_mask = prepare_mask(mask)
-    img = img.astype(np.uint8)  # Apply color mapping for the eyes
+def calculate_reductions(face_landmarks, eyebrow_landmarks, img):
     face_width = face_landmarks[0, 1]
     eyebrow_height = eyebrow_landmarks[3, 1]
     h, w, c = img.shape
     height_reduced = int((h-eyebrow_height)/32)
     width_reduced = int((w-face_width)/8)
+    return height_reduced, width_reduced, h, w, c
+
+def make_eye_img(img, height_reduced, width_reduced, w, h, mask, inverse_mask, face_img):
     eye = cv2.copyMakeBorder(img, height_reduced, height_reduced*3, width_reduced, width_reduced, cv2.BORDER_CONSTANT)
     eye = cv2.resize(eye, (w, h))
     eye = eye.astype(float)/255
-    result = multiply_eye_mask(mask, inverse_mask, eye, face_img)
-    return result
+    # Multiply eyes and face by the mask
+    return multiply_eye_mask(mask, inverse_mask, eye, face_img)
+    # return alpha_blend(eye, face_img, mask)
 
-def make_face_img(img, mask, face_landmarks, face_img):
-    mask, inverse_mask = prepare_mask(mask)
-    img = img.astype(np.uint8)  # Apply color mapping for the eyes
-    face_width = face_landmarks[0, 1]
-    h, w, c = img.shape
-    width_reduced = int((w-face_width)/8)
+def make_face_img(img, width_reduced, w, h, mask, inverse_mask):
     face = img.copy()
+    head = img.astype(float)/255
     face = cv2.resize(face, (w*2, h*2))
     face = cv2.copyMakeBorder(face, 0, 0, int(width_reduced*0.3), int(width_reduced*0.3), cv2.BORDER_CONSTANT)
     face = cv2.resize(face, (w, h))
     face = cv2.GaussianBlur(face, (0, 0), 8)
     face = face.astype(float)/255
-    result = multiply_eye_mask(mask, inverse_mask, face, img.astype(float)/255)
+    # Multiply eyes and face by the mask
+    return  multiply_eye_mask(mask, inverse_mask, face, head)
+    # return alpha_blend(face, head, mask)
+
+def make_img(img, mask, face_landmarks, eyebrow_landmarks, face_img, type_mask):
+    check_inputs(img, mask, face_landmarks, eyebrow_landmarks, face_img, type_mask)
+    mask, inverse_mask = prepare_masks(mask)
+    img = img.astype(np.uint8)
+    height_reduced, width_reduced, h, w, c = calculate_reductions(face_landmarks, eyebrow_landmarks, img)
+    if type_mask == 'reduced_eyes_mask':
+        result = make_eye_img(img, height_reduced, width_reduced, w, h, mask, inverse_mask, face_img)
+    else:
+        result = make_face_img(img, width_reduced, w, h, mask, inverse_mask)
     return result
 
 '''
