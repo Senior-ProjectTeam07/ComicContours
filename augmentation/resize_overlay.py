@@ -8,12 +8,12 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
 
-'''
-This function is what is returned in the resize method. 
-It's responsible for resizing the feature points, based on the scale factor, and the margin points. 
-it is then overlaid onto the original image, and the 
-'''
 def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_factor, height_margin_factor):
+    '''
+    This function is what is returned in the resize method. 
+    It's responsible for resizing the feature points, based on the scale factor, and the margin points. 
+    it is then overlaid onto the original image, and the 
+    '''
     # Check if the image is empty
     if img.size == 0:
         raise ValueError("Input image is empty.")
@@ -22,6 +22,14 @@ def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_f
     if feature_points.size == 0:
         raise ValueError("Feature points are empty.")
     
+    # Check for invalid scale factor
+    if scale_factor <= 0 or scale_factor > 3:
+        raise ValueError("Scale factor must be between 0 and 3.")
+
+    # Check for invalid margin factors
+    if width_margin_factor < 0 or width_margin_factor > 1 or height_margin_factor < 0 or height_margin_factor > 1:
+        raise ValueError("Margin factors must be between 0 and 1.")
+
     # Calculate the bounding box for the region, based on margin and landmarks.
     x_min, y_min = np.min(feature_points, axis=0).astype(int)
     x_max, y_max = np.max(feature_points, axis=0).astype(int)
@@ -30,8 +38,15 @@ def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_f
     if x_min >= x_max or y_min >= y_max:
         raise ValueError("Feature region is empty or invalid due to incorrect bounding box.")
 
+    # Calculate margins
     width_margin = int((x_max - x_min) * width_margin_factor)
     height_margin = int((y_max - y_min) * height_margin_factor)
+
+    # Ensure that the margins do not reduce the feature region to an invalid state
+    if (x_max - x_min - 2 * width_margin <= 0) or (y_max - y_min - 2 * height_margin <= 0):
+        width_margin = (x_max - x_min) // 2
+        height_margin = (y_max - y_min) // 2
+
     x_min = max(x_min - width_margin, 0)
     y_min = max(y_min - height_margin, 0)
     x_max = min(x_max + width_margin, img.shape[1])

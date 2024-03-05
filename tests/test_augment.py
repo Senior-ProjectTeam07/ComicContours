@@ -1,7 +1,4 @@
-# test_augment.py
-
 import unittest
-from unittest.mock import patch, MagicMock
 import numpy as np
 import cv2
 import sys
@@ -9,43 +6,37 @@ import os
 current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
-from augmentation.augment import main
+from augmentation.augment import augment_image, augment_nose, augment_eyes
+from utils.file_utils import get_dir
 
-class TestAugmentingFeatures(unittest.TestCase):
-    
+class TestAugment(unittest.TestCase):
     def setUp(self):
-        # Set up a dummy image with the correct shape
-        self.dummy_image = np.zeros((4032, 3024, 3), dtype=np.uint8)
-        self.dummy_features = np.array([[10, 10], [20, 20]])
-        self.dummy_image_id = 0
+        self.facial_features = np.load(get_dir('data/facial_features.npy'))
+        self.feature_to_int = {'jawline': 0, 'eyebrows': 1, 'nose': 2, 'eyes': 3, 'lips': 4}
+        self.image_directory = get_dir('data/original_images')
+        self.augmented_directory = get_dir('data/augmented_images')
+        self.nose_scale_factor = 1.25
+        self.image_paths = [os.path.join(self.image_directory, filename) for filename in os.listdir(self.image_directory) if
+                   filename.lower().endswith(('.png', '.jpg', '.jpeg'))]
 
-    @patch('augmentation.augment.cv2.imread')
-    @patch('os.listdir')
-    @patch('utils.file_utils.get_dir')
-    @patch('augmentation.nose.resize_nose')
-    @patch('landmarking.load.load_feature_landmarks')
-    @patch('augmentation.nose.create_nose_mask')
-    @patch('cv2.GaussianBlur')
-    def test_main(self, mock_blur, mock_create_mask, mock_load_landmarks, mock_resize_nose, mock_get_dir, mock_listdir, mock_imread):
-        # Mock the dependencies that interact with the file system
-        mock_get_dir.side_effect = lambda x: '/test/dir/' + x
-        mock_listdir.return_value = ['image1.jpg', 'image2.png']
-        mock_imread.return_value = self.dummy_image
+    def test_augment_nose(self):
+        for img_path in self.image_paths:
+            image_id = self.image_paths.index(img_path)
+            img = cv2.imread(img_path)
+            augmented_img = augment_nose(img_path, self.facial_features, image_id, self.feature_to_int, self.nose_scale_factor)
+            self.assertIsNotNone(augmented_img)
 
-        # Mock the image processing functions
-        mock_load_landmarks.return_value = self.dummy_features
-        mock_create_mask.return_value = self.dummy_image
-        mock_blur.return_value = self.dummy_image
-        mock_resize_nose.return_value = self.dummy_image
+    def test_augment_eyes(self):
+        for img_path in self.image_paths:
+            image_id = self.image_paths.index(img_path)
+            img = cv2.imread(img_path)
+            augmented_img = augment_eyes(img, self.facial_features, image_id, self.feature_to_int)
+            self.assertIsNotNone(augmented_img)
 
-        # Run the function under test
-        main()
-
-        # Verify that the image processing functions were called correctly
-        # Verify other mocks/assertions as needed
-        mock_resize_nose.assert_called()
-        mock_create_mask.assert_called()
-        mock_blur.assert_called()
+    def test_augment_image(self):
+        augment_image()
+        augmented_images = os.listdir(self.augmented_directory)
+        self.assertTrue(len(augmented_images) > 0)
 
 if __name__ == '__main__':
     unittest.main()

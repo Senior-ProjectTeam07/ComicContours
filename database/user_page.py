@@ -48,7 +48,7 @@ def create_caricature(fname, checked, text_box):
         filename = ''
         # call facial landmarking to update processed photo folder
         fl.main()
-        af.main()
+        af.augment_image()
 
 # Create user window
 def main():
