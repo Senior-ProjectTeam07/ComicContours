@@ -1,6 +1,4 @@
-from PySide6.QtWidgets import QPushButton, QApplication, QHBoxLayout, QLabel, QLineEdit, QMessageBox
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont, QImage, QPixmap
+from tkinter import *
 import login_page as lp
 import smtplib
 import sqlite3
@@ -8,14 +6,8 @@ import bcrypt
 from email.message import EmailMessage
 import secrets
 import re
-
-
-# Make database if not exist
-def make_user_database():
-    connection = sqlite3.connect('user_data.db')
-    user = connection.cursor()
-    user.execute('''CREATE TABLE IF NOT EXISTS 'users' (id text, email text, password text, unique(email))''')
-    connection.commit()
+import customtkinter
+from PIL import Image
 
 
 # Function to find user by email
@@ -28,7 +20,7 @@ def find_user_email(email):
 
 
 # Function to send email SMTP
-def send_reset_email(window, user_email):
+def send_reset_email(frame, user_email):
     # make new random password
     password_length = 8
     password = secrets.token_urlsafe(password_length)
@@ -39,7 +31,7 @@ def send_reset_email(window, user_email):
     try:
         new_password.execute("Update users set password = ? where email = ? ", [hash_password, user_email])
     except sqlite3.Error:
-        show_message("Error: No Email Found, Please Create User", "red")
+        lp.error_message_box(frame, "Error: No Email Found, Please Create User", "red")
     conn.commit()
     conn.close()
     connection = sqlite3.connect('user_data.db')
@@ -67,136 +59,65 @@ def is_valid_email(email):
     return re.match(r"[^@]+@[^@]+\.[^@]+", email)
 
 
-# Function to show a message
-def show_message(message, color):
-    message = "<font size=20 color = "+color+">" + message + "</font>"
-    message_label = QMessageBox(QMessageBox.Icon.Warning, "Error Message", message)
-    message_label.exec()
-
-
 # Function to handle the forgot password logic
-def handle_forgot_password(window, name, email):
-    if '' in name and email:
-        show_message("Please enter all details.", 'red')
+def handle_forgot_password(frame, name, email):
+    if not name or not email:
+        lp.error_message_box(frame, "Please enter all details!", "red")
         return
     if not is_valid_email(email):
-        show_message("Invalid email format.", 'red')
+        lp.error_message_box(frame, "Invalid email format!", 'red')
         return
 
     user = find_user_email(email)
     if user and (user == name):
-        send_reset_email(window, email)
-        show_message("New password sent to email.", 'green')
+        send_reset_email(frame, email)
+        lp.error_message_box(frame, "New password sent to email.", 'green')
     else:
-        show_message("User not found.", 'red')
+        lp.error_message_box(frame, "User not found!", 'red')
 
 
-def clear_layout(layout):
-    while layout.count():
-        child = layout.takeAt(0)
-        if child.widget() is not None:
-            child.widget().deleteLater()
-        elif child.layout() is not None:
-            clear_layout(child.layout())
+def open_login_window(wind, frame):
+    lp.clear_frame(frame)
+    lp.create_main_page(wind, frame)
 
 
-def open_login_page(window, app, layout):
-    clear_layout(layout)
-    lp.make_page_layout(window, app, layout)
-
-
-def add_entrybox(layout, label_name):
-    box = QHBoxLayout()
-    entry, answer = QLabel(label_name+':'), QLineEdit()
-    entry.setAlignment(Qt.AlignRight)
-    entry.setMaximumWidth(QApplication.primaryScreen().size().width()/4)
-    answer.setMaximumWidth(QApplication.primaryScreen().size().width()/4)
-    customize_widget(entry, "Times New Roman", 20, 'black', '', '', 200)
-    answer.setStyleSheet('background-color : #f6f6f6')
-    make_accessible(answer, "Input box for " + label_name, "This is where the" + label_name + " is input into a text box.")
-    box.addStretch()
-    box.addWidget(entry, Qt.AlignRight)
-    box.addWidget(answer, Qt.AlignLeft)
-    box.addStretch()
-    layout.addLayout(box)
-    layout.addStretch()
-    return answer.text()
-
-
-def make_accessible(widget, name, description):
-    widget.setAccessibleName(name)
-    widget.setAccessibleDescription(description)
-
-
-def customize_widget(widget, font, font_num, color, background_color, border_color, width):
-    if font != '':
-        widget.setFont(QFont(font, font_num))
-    if background_color == '':
-        widget.setStyleSheet('color:' + color)
-    if color == '':
-        widget.setStyleSheet('background-color:' + background_color)
-    if (background_color != '') and (color != ''):
-        widget.setStyleSheet('background-color:' + background_color + ';color:' + color + ';border:' + border_color)
-    if width != '':
-        widget.setFixedWidth(width)
-    else:
-        return
-    return
-
-
-# Function to create user
-def make_page_layout(window, app, spacing_box):
-    # size window
-    screen_size = QApplication.primaryScreen().size()
-    screen_width, screen_height = screen_size.width(), screen_size.height()
-
-    # support high contrast themes
-    app.setStyle("Fusion")
+# Function to create the forgot password window
+def forgot_user(window, frame):
+    # Make a label for the window
+    font = ('Times New Roman', 20)
+    my_image = customtkinter.CTkImage(light_image=Image.open('icons/comic_contours_icon.png'),
+                                      dark_image=Image.open('icons/comic_contours_icon.png'), size=(450, 150))
+    customtkinter.CTkLabel(frame, text="", image=my_image).pack(pady=20)
+    customtkinter.CTkLabel(frame, text="Forgot Password", font=('Times New Roman', 40)).pack(pady=12, padx=10, side=TOP)
     # Create label user info
-    img_label = QLabel()
-    img = QImage("icons/logo_CS426.png")
-    pixmap = QPixmap(img)
-    img_label.setPixmap(pixmap)
-    img_label.setScaledContents(True)
-    img_label.setMaximumSize((screen_width-20), (screen_height/4))
-    img_label.setMinimumSize((screen_width/4), (screen_height/12))
-    make_accessible(img_label, "Comic Contours Image", "This is a image of the name Comic Contours with augmented photos in the background.")
-    spacing_box.addWidget(img_label)
-
-    page_label = QLabel("Forgot Password")
-    customize_widget(page_label, "Arial", 40, 'black', '', '', '')
-    make_accessible(page_label, "Create Account Page", "This is a Create Account Page for our application on Comic Contours.")
-    spacing_box.addWidget(page_label, alignment=Qt.AlignHCenter)
-    spacing_box.addStretch()
-
-    # Add an email label and input field
-    name = add_entrybox(spacing_box, "Name")
-    email = add_entrybox(spacing_box, "Email")
-
-    # Add a return to login page button with improved contrast
-    spacing_box.addStretch()
-    login_button = QPushButton("Return to login page")
-    customize_widget(login_button, "Times New Roman", 20, 'blue', 'white', 'white', '')
-    make_accessible(login_button, "Return to Login Page button", "This button takes the user into the login page.")
-    login_button.clicked.connect(lambda: open_login_page(window, app, spacing_box))
-    login_button.setShortcut(Qt.Key_Enter)
-    spacing_box.addWidget(login_button, alignment=Qt.AlignLeft, stretch=10)
-
-    # Add send email button
-    send_email_button = QPushButton("Send Email")
-    customize_widget(send_email_button, "Times New Roman", 20, 'white', 'darkblue', '', '')
-    make_accessible(send_email_button, "Send Email button", "This button sends email for the user to reset password.")
-    send_email_button.clicked.connect(lambda: handle_forgot_password(window, name, email))
-    send_email_button.setShortcut(Qt.Key_Enter)
-    spacing_box.addWidget(send_email_button)
-
-    window.setLayout(spacing_box)
+    name_entry = customtkinter.CTkEntry(frame, placeholder_text="Name", font=font, width=200)
+    name_entry.pack(pady=12, padx=10, side=TOP)
+    email_entry = customtkinter.CTkEntry(frame, placeholder_text="Email", font=font, width=200)
+    email_entry.pack(pady=12, padx=10, side=TOP)
+    # Create send email button, when pressed sends password to email
+    send_button = customtkinter.CTkButton(frame, text='Send Email', font=font,
+                                          command=lambda: handle_forgot_password(frame, name_entry.get(),
+                                                                                 email_entry.get()))
+    send_button.pack(pady=12, padx=10, side=TOP)
+    label = customtkinter.CTkLabel(frame, text="Return to login page", font=font)
+    label.bind("<Button-1>", lambda e: open_login_window(window, frame))
+    label.pack(pady=12, padx=10, anchor='w', side=BOTTOM)
 
 
-# Create forgot password window
-def main(window, app, layout):
+if __name__ == "__main__":
     # database
-    make_user_database()
-    # create main window
-    make_page_layout(window, app, layout)
-    window.showMaximized()
+    lp.make_user_database()
+    # create window
+    window = customtkinter.CTk()
+    customtkinter.set_appearance_mode('dark')
+    customtkinter.set_default_color_theme("blue")
+    window.title('Facial Feature Augmentation using GAN')
+    window.after(0, lambda: window.wm_state('zoomed'))
+    window.minsize(450, 550)
+    # Create frame
+    frame = customtkinter.CTkFrame(master=window, width=300)
+    frame.pack(pady=10, padx=0, expand=TRUE, fill='none')
+    # Create layout
+    forgot_user(window, frame)
+    # Run forever
+    window.mainloop()
