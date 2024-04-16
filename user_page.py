@@ -1,9 +1,6 @@
 import os.path
-import glob
 from tkinter import *
 from tkinter import filedialog
-from tkinter import messagebox
-from imutils.object_detection import non_max_suppression
 import database_page as cd
 import login_page as lp
 import shutil
@@ -11,7 +8,7 @@ import Augmentation_Project as ap
 import customtkinter
 from camera_webcam import camera_status
 import about_page as about
-from camera_webcam import get_filename, has_a_image, start_webcam, set_has_image
+from camera_webcam import get_filename, has_a_image, start_webcam
 from PIL import Image
 filename = ""
 label, vid = '', ''
@@ -69,7 +66,6 @@ def create_caricature(frame, aug_frame, checked, text_box):
     global filename
     print(filename, "create caricture")
     fname = filename
-
     fname = check_snapshot(fname, text_box)
     #  copy image
     if (fname == '') and (checked is False):

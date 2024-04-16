@@ -112,19 +112,6 @@ def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_f
     return img
 
 
-def resize_and_overlay_mouth(img, mouth_landmarks, scale_factor, width_margin_factor, height_margin_factor):
-    # Expand eye_landmarks by half the distance from eyes to eyebrows
-    # print(mouth_landmarks)
-    top_lip = mouth_landmarks.copy()
-    top_lip = np.delete(top_lip, [1, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], axis=0)
-    bottom_lip = [0]
-    print(top_lip, bottom_lip)
-    result = (mouth_landmarks)
-    mouth_landmarks = top_lip
-    return mouth_landmarks
-
-
-
 '''
 This function creates a mask where the area around the nose is white (255), to indicate the ROI. 
 The rest of the mask is black, it can then be used in the blending.
@@ -163,22 +150,6 @@ def create_eye_mask(eye_landmarks1, eye_landmarks2, img):
     # Apply close operation to improve mask
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (40, 40))
     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-    return mask
-
-
-def create_mouth_mask(img, feature_points, width_margin_factor, height_margin_factor):
-    mask = np.zeros_like(img)
-    x_min, y_min = np.min(feature_points, axis=0).astype(int)
-    x_max, y_max = np.max(feature_points, axis=0).astype(int)
-    width_margin = int((x_max - x_min) * width_margin_factor)
-    height_margin = int((y_max - y_min) * height_margin_factor)
-    x_min = max(x_min - width_margin, 0)
-    y_min = max(y_min - height_margin, 0)
-    y_min_half = y_min*2
-    x_max = min(x_max + width_margin, img.shape[1])
-    y_max = min(y_max + height_margin, img.shape[0])
-    # mask[y_min:y_max, x_min:x_max] = 255
-    mask[y_min_half:y_max, x_min:x_max] = 255
     return mask
 
 
