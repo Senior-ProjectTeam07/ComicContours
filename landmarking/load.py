@@ -1,10 +1,16 @@
 # load.py
-
-'''
-This function loads the land markings found from the .npy file
-returns the x,y coordinates from the data with are col 4 & 5.
-'''
 def load_feature_landmarks(facial_features, image_id, feature_to_int, feature_name):
-    feature_landmarks = facial_features[
-        (facial_features[:, 0] == image_id) & (facial_features[:, 1] == feature_to_int[feature_name])]
-    return feature_landmarks[:, 3:5]
+    
+    # Check if the facial_features array is empty or not a 2D array
+    if facial_features.size == 0 or len(facial_features.shape) != 2:
+        raise ValueError("facial_features array is empty or not correctly formatted.")
+    
+    # Filter the landmarks for the specified image_id and feature
+    mask = (facial_features[:, 0] == image_id) & (facial_features[:, 1] == feature_to_int.get(feature_name, -1))
+    filtered_landmarks = facial_features[mask]
+    
+    # Check if there are any landmarks after filtering
+    if filtered_landmarks.size == 0:
+        raise ValueError(f"No landmarks found for image_id {image_id} and feature '{feature_name}'.")
+    
+    return filtered_landmarks[:, 3:5]
