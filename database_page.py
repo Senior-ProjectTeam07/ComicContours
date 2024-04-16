@@ -1,14 +1,15 @@
 import os
-
+import numpy as np
 import cv2
 from PIL import ImageTk
 import PIL.Image
 from tkinter import *
+from tkinter import filedialog
 import user_page as up
 import login_page as lp
 import about_page as ap
 import customtkinter
-original_list, processed_list, augmented_list = [], [], []
+original_list, processed_list, augmented_list, current_img, current_num = [], [], [], '', 0
 small_original_list, small_processed_list, small_augmented_list = [], [], []
 
 
@@ -25,6 +26,44 @@ def open_login_window(wind, frame):
 def open_about(wind, frame):
     lp.clear_frame(frame)
     ap.main(wind, frame)
+
+
+def browse_files():
+    global current_img
+    img = ImageTk.getimage(current_img)
+    folder_path = filedialog.askdirectory(initialdir="/", title="Select a Folder")
+    print(folder_path)
+    img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    cv2.imwrite(f'{folder_path}/new_img.jpeg', img)
+
+
+def get_frame_img(frame, img_no):
+    global current_img, current_num
+    label = ''
+    current_num = img_no
+    # for getting image that is displayed, resetting buttons
+    if frame == orig_frame:
+        label = Label(frame, image=original_list[img_no])
+        current_img = original_list[img_no]
+    if frame == process_frame:
+        label = Label(frame, image=processed_list[img_no])
+        current_img = processed_list[img_no]
+    if frame == augmented_frame:
+        label = Label(frame, image=augmented_list[img_no])
+        current_img = augmented_list[img_no]
+    return label
+
+
+def delete_image_of_person():
+    global original_list, processed_list, augmented_list, current_num
+    np.delete(original_list, current_num, 0)
+    np.delete(processed_list, current_num, 0)
+    np.delete(augmented_list, current_num, 0)
+    folder = os.listdir('./Augmentation_Project/original_images')
+    img_name = folder[current_num]
+    os.remove(f'./Augmentation_Project/original_images/{img_name}')
+    os.remove(f'./Augmentation_Project/processed_images/Processed_{img_name}')
+    os.remove(f'./Augmentation_Project/augmented_images/augmented_{img_name}')
 
 
 def get_photo_folder(type_photo):
@@ -65,13 +104,7 @@ def back(img_no, label, tot_img, btn_fwd, btn_back, frame):
     label.grid_forget()
     btn_fwd.grid_forget()
     btn_back.grid_forget()
-    # for changing image that is displayed, resetting buttons
-    if frame == orig_frame:
-        label = Label(frame, image=original_list[img_no])
-    if frame == process_frame:
-        label = Label(frame, image=processed_list[img_no])
-    if frame == augmented_frame:
-        label = Label(frame, image=augmented_list[img_no])
+    label = get_frame_img(frame, img_no)
     btn_fwd = customtkinter.CTkButton(frame, text="Forward", command=lambda: forward(img_no+1, label, tot_img, btn_fwd, btn_back, frame))
     btn_back = customtkinter.CTkButton(frame, text="Back", command=lambda: back(img_no-1, label, tot_img, btn_fwd, btn_back, frame))
 
@@ -89,13 +122,7 @@ def forward(img_no, label, tot_img, btn_fwd, btn_back, frame):
     btn_fwd.grid_forget()
     btn_back.grid_forget()
 
-    # for getting image that is displayed, resetting buttons
-    if frame == orig_frame:
-        label = Label(frame, image=original_list[img_no])
-    if frame == process_frame:
-        label = Label(frame, image=processed_list[img_no])
-    if frame == augmented_frame:
-        label = Label(frame, image=augmented_list[img_no])
+    label = get_frame_img(frame, img_no)
     # img_no+1 as we want the next image to pop up when clik forward
     btn_fwd = customtkinter.CTkButton(frame, text="Forward", command=lambda: forward(img_no+1, label, tot_img, btn_fwd, btn_back, frame))
     # disable button for first and last photo
@@ -117,13 +144,7 @@ def jump_to_photo(img_no, label, btn_fwd, btn_back, tot_img, frame):
     btn_fwd.grid_forget()
     btn_back.grid_forget()
 
-    # for getting the image that is displayed, resetting buttons
-    if frame == orig_frame:
-        label = Label(frame, image=original_list[img_no])
-    if frame == process_frame:
-        label = Label(frame, image=processed_list[img_no])
-    if frame == augmented_frame:
-        label = Label(frame, image=augmented_list[img_no])
+    label = get_frame_img(frame, img_no)
     if img_no == tot_img:
         btn_fwd = customtkinter.CTkButton(frame, text="Forward", state=DISABLED)
     else:
@@ -157,34 +178,28 @@ def make_frame_btns(frame):
 
 
 def make_frame(frame):
-    global original_list, processed_list, augmented_list
+    global original_list, processed_list, augmented_list, current_img, current_num
     # make original photo, processed photo, and augmented photo buttons
     make_frame_btns(frame)
     # put images in list, display first image
     num_img = 0
     if frame == orig_frame:
         num_img, original_list = get_photo_folder("Original Photos")
-        label = Label(orig_frame, image=original_list[0])
-        label.grid(row=1, column=0, columnspan=3, padx=20)
     if frame == process_frame:
         num_img, processed_list = get_photo_folder("Processed Photos")
-        label = Label(process_frame, image=processed_list[0])
-        label.grid(row=1, column=0, columnspan=3, padx=20)
     if frame == augmented_frame:
         num_img, augmented_list = get_photo_folder("Augmented Photos")
-        label = Label(augmented_frame, image=augmented_list[0])
-        label.grid(row=1, column=0, columnspan=3, padx=20)
-
+    label = get_frame_img(frame, 0)
+    current_num = 0
+    label.grid(row=1, column=0, columnspan=3, padx=20)
     # We will have button back, and forward
+    frame_btns = customtkinter.CTkFrame(frame, bg_color='black')
     button_back = customtkinter.CTkButton(frame, text="Back", command=back, state=DISABLED)
-    button_forward = customtkinter.CTkButton(frame, text="Forward", command=lambda: forward(1, label, num_img, button_forward,
-                                                                           button_back, frame))
-    # grid function is for placing the buttons in the frame
-    button_back.grid(row=5, column=0)
-    button_forward.grid(row=5, column=2)
+    button_forward = customtkinter.CTkButton(frame, text="Forward", command=lambda: forward(1, label, num_img,
+                                                                                            button_forward, button_back,
+                                                                                            frame))
     # Create a frame for the canvas
-    frame_canvas = customtkinter.CTkFrame(frame, bg_color='black')
-    frame_canvas.grid(row=1, column=6, pady=(5, 0), sticky='nw')
+    frame_canvas = customtkinter.CTkFrame(frame_btns, bg_color='black')
 
     # canvas
     canvas = customtkinter.CTkCanvas(frame_canvas, bg='black', background='black')
@@ -197,8 +212,8 @@ def make_frame(frame):
     canvas.create_window((0, 0), window=btn_frame, anchor='nw')
     # make button number for num images and allow button to jump to photo
     button = list(range(0, num_img+1))
+    img = ''
     for i in range(0, num_img+1):
-        img = ''
         if frame == orig_frame:
             img = small_original_list[i]
         if frame == process_frame:
@@ -217,6 +232,15 @@ def make_frame(frame):
     canvas.configure(width=btn_width)
     frame_canvas.configure(width=btn_width, height=btn_height)
     canvas.configure(scrollregion=canvas.bbox("all"))
+    button_download = customtkinter.CTkButton(frame_btns, text="Download image", fg_color='dark blue', command=lambda: browse_files())
+    button_delete = customtkinter.CTkButton(frame_btns, text="Delete image", fg_color='dark blue', command=lambda :delete_image_of_person())
+    frame_btns.grid(row=0, column=6, rowspan=3, sticky='nw', pady=20)
+    customtkinter.CTkLabel(frame_btns, text="Jump to photo", text_color='grey').pack()
+    frame_canvas.pack()
+    button_download.pack(pady=15)
+    button_delete.pack()
+    button_back.grid(row=5, column=0)
+    button_forward.grid(row=5, column=2)
 
 
 # Main #

@@ -62,6 +62,12 @@ region is overlaid on the image.
 '''
 
 
+def resize_mouth(img, facial_features, image_id, feature_to_int, scale_factor):
+    mouth_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'lips')
+    return resize_and_overlay_feature(img, mouth_landmarks, scale_factor, width_margin_factor=0.8,
+                                      height_margin_factor=0.1)
+
+
 def resize_eyes(img, facial_features, image_id, feature_to_int, scale_factor):
     eye_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'eyes')
     return resize_and_overlay_feature(img, eye_landmarks, scale_factor, width_margin_factor=0.25,
@@ -102,9 +108,21 @@ def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_f
     # Calculates the overlay starting vertical margin for where the resized feature should be placed.
     # Discarding the fractional part to ensure whole integers for coordinates.
     overlay_start_y = y_min + (feature_height - scaled_height) // 2
-    img[overlay_start_y:overlay_start_y + scaled_height,
-    overlay_start_x:overlay_start_x + scaled_width] = scaled_feature
+    img[overlay_start_y:overlay_start_y + scaled_height, overlay_start_x:overlay_start_x + scaled_width] = scaled_feature
     return img
+
+
+def resize_and_overlay_mouth(img, mouth_landmarks, scale_factor, width_margin_factor, height_margin_factor):
+    # Expand eye_landmarks by half the distance from eyes to eyebrows
+    # print(mouth_landmarks)
+    top_lip = mouth_landmarks.copy()
+    top_lip = np.delete(top_lip, [1, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], axis=0)
+    bottom_lip = [0]
+    print(top_lip, bottom_lip)
+    result = (mouth_landmarks)
+    mouth_landmarks = top_lip
+    return mouth_landmarks
+
 
 
 '''
@@ -114,7 +132,7 @@ The mask uses the land mark points, and margin to define the region of the mask.
 '''
 
 
-def create_nose_mask(img, feature_points, width_margin_factor, height_margin_factor):
+def create_feature_mask(img, feature_points, width_margin_factor, height_margin_factor):
     mask = np.zeros_like(img)
     x_min, y_min = np.min(feature_points, axis=0).astype(int)
     x_max, y_max = np.max(feature_points, axis=0).astype(int)
@@ -145,6 +163,22 @@ def create_eye_mask(eye_landmarks1, eye_landmarks2, img):
     # Apply close operation to improve mask
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (40, 40))
     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+    return mask
+
+
+def create_mouth_mask(img, feature_points, width_margin_factor, height_margin_factor):
+    mask = np.zeros_like(img)
+    x_min, y_min = np.min(feature_points, axis=0).astype(int)
+    x_max, y_max = np.max(feature_points, axis=0).astype(int)
+    width_margin = int((x_max - x_min) * width_margin_factor)
+    height_margin = int((y_max - y_min) * height_margin_factor)
+    x_min = max(x_min - width_margin, 0)
+    y_min = max(y_min - height_margin, 0)
+    y_min_half = y_min*2
+    x_max = min(x_max + width_margin, img.shape[1])
+    y_max = min(y_max + height_margin, img.shape[0])
+    # mask[y_min:y_max, x_min:x_max] = 255
+    mask[y_min_half:y_max, x_min:x_max] = 255
     return mask
 
 
@@ -219,7 +253,7 @@ def main():
         nose_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'nose')
 
         # the margins here for the mask affect where the bounds of the box are.
-        nose_mask = create_nose_mask(original_img, nose_landmarks, width_margin_factor=0.4, height_margin_factor=0.1)
+        nose_mask = create_feature_mask(original_img, nose_landmarks, width_margin_factor=0.4, height_margin_factor=0.1)
 
         # blurs the nose region, the kernel size changes the blur amount
         # ksize (0,0)  -> (width, height)
@@ -234,13 +268,20 @@ def main():
         # white is now rep by 0, black is rep by 1
         # areas that are 0 (black) are now kept, and areas that are white are blurred.
         # adding them together gives the seamless blend of the images; so the nose is augmented and now blended in.
-        img = img * (nose_mask_blurred / 255) + original_img * (1 - (nose_mask_blurred / 255))
+        original_img = img * (nose_mask_blurred / 255) + original_img * (1 - (nose_mask_blurred / 255))
+        img =  img * (nose_mask_blurred / 255) + original_img * (1 - (nose_mask_blurred / 255))
 
+        mouth_scale_factor = 1.25
+        img_mouth = resize_mouth(img, facial_features, image_id, feature_to_int, mouth_scale_factor)
+        mouth_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'lips')
+        mouth_mask = create_feature_mask(original_img, mouth_landmarks, width_margin_factor=0.10, height_margin_factor=0.1)
+        mouth_mask_blurred = cv2.GaussianBlur(mouth_mask, (0, 0), 21)
+        img = img_mouth * (mouth_mask_blurred / 255) + original_img * (1 - (mouth_mask_blurred / 255))
         # saves the image with augmented_filename.jpeg for our way of telling the images apart, and ease of use in UI.
         # saved to the augmented_images dir.
         augmented_img_name = f"augmented_{os.path.basename(img_path)}"
         augmented_img_path = os.path.join(augmented_directory, augmented_img_name)
-        cv2.imwrite(augmented_img_path, img)
+        # cv2.imwrite(augmented_img_path, img)
 
         # START TO EYE AUGMENTATION #
         # Get landmarks for eyes and other facial features

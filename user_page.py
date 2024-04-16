@@ -1,7 +1,9 @@
 import os.path
+import glob
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
+from imutils.object_detection import non_max_suppression
 import database_page as cd
 import login_page as lp
 import shutil
@@ -9,7 +11,7 @@ import Augmentation_Project as ap
 import customtkinter
 from camera_webcam import camera_status
 import about_page as about
-from camera_webcam import get_filename, has_a_image
+from camera_webcam import get_filename, has_a_image, start_webcam, set_has_image
 from PIL import Image
 filename = ""
 label, vid = '', ''
@@ -40,18 +42,34 @@ def message_box(frame, message, color, row, column, columnspan):
     frame.after(3500, error_label.destroy)
 
 
+def set_filename():
+    global filename
+    filename = ''
+    print(filename, 'set file')
+
+
 def browse_files(text):
     global filename
-    filename = filedialog.askopenfilename(initialdir="/", title="Select a File", filetypes=[("JPG", "*.jpg "),
-                                                                                            ("JPEG", "*.jpeg")])
-    text.config(state='normal')
-    text.insert(INSERT, filename)
-    text.config(state='disabled')
-    return filename
+    if has_a_image() is False:
+        filename = filedialog.askopenfilename(initialdir="/", title="Select a File", filetypes=[("JPG", "*.jpg "),
+                                                                                                ("JPEG", "*.jpeg")])
+        text.config(state='normal')
+        text.insert(INSERT, filename)
+        text.config(state='disabled')
+    else:
+        filename = filedialog.askopenfilename(initialdir="/", title="Select a File", filetypes=[("JPG", "*.jpg "),
+                                                                                                ("JPEG", "*.jpeg")])
+        start_webcam()
+        text.config(state='normal')
+        text.insert(INSERT, filename)
+        text.config(state='disabled')
 
 
-def create_caricature(frame, aug_frame, fname, checked, text_box):
+def create_caricature(frame, aug_frame, checked, text_box):
     global filename
+    print(filename, "create caricture")
+    fname = filename
+
     fname = check_snapshot(fname, text_box)
     #  copy image
     if (fname == '') and (checked is False):
@@ -63,6 +81,9 @@ def create_caricature(frame, aug_frame, fname, checked, text_box):
         message_box(frame, 'Error: Please check consent box!', 'red', 4, 0, 2)
     if not(fname == '') and (checked is True):
         folder = os.path.abspath("./Augmentation_Project/original_images")
+        shutil.copy(fname, folder)
+        folder = os.path.abspath("./Augmentation_Project/Snapshots")
+        print(folder)
         shutil.copy(fname, folder)
         text_box.config(state='normal')
         text_box.delete("1.0", "end")
@@ -87,13 +108,13 @@ def check_snapshot(filename, file_text):
         return filename
 
 
-def webcam_view(frame1):
-    frame1.after(1, camera_status(frame1, True))
+def webcam_view(frame1, file_text):
+    frame1.after(1, camera_status(frame1, True, file_text))
 
 
 def show_images_frame(frame, main_frame, font, file):
     # Make a label for the window
-    frame1 = customtkinter.CTkFrame(master=frame, width=600, height=600)
+    frame1 = customtkinter.CTkFrame(master=frame, width=600, height=400)
     frame1.grid(row=0, column=0, columnspan=2)
     customtkinter.CTkLabel(frame1, text="Welcome to Facial Feature Augmentation", font=font).grid(row=0,
                                                                                                   column=0,
@@ -104,10 +125,10 @@ def show_images_frame(frame, main_frame, font, file):
         customtkinter.CTkLabel(frame1, text="", image=orig_image).grid(row=1, column=0, padx=5, pady=60)
         newfile = f"Augmentation_Project/augmented_images/augmented_{os.path.basename(file)}"
         aug_image = customtkinter.CTkImage(light_image=Image.open(newfile), dark_image=Image.open(newfile), size=(550, 450))
-        customtkinter.CTkLabel(frame1, text="", image=aug_image).grid(row=1, column=1, padx=5, pady=60)
+        customtkinter.CTkLabel(frame1, text="", image=aug_image).grid(row=1, column=1, padx=5, pady=50)
 
     # Liability button
-    customtkinter.CTkButton(frame1, text='Return to main Page', font=font, command=lambda: main_frame.tkraise()).grid(row=2, column=0, columnspan=2, pady=40)
+    customtkinter.CTkButton(frame1, text='Return to main Page', font=font, command=lambda: main_frame.tkraise()).grid(row=2, column=0, columnspan=2, pady=0)
 
 
 def show_main_page_frame(frame, img_frame, font):
@@ -115,17 +136,16 @@ def show_main_page_frame(frame, img_frame, font):
     frame1 = customtkinter.CTkFrame(master=frame, width=600, height=400)
     frame1.grid(row=0, column=0, columnspan=2, pady=20)
     customtkinter.CTkLabel(frame1, text="Welcome to Facial Feature Augmentation", font=font).grid(row=0, column=1)
-    # Make a button for browsing images the window
-    webcam_view(frame1)
 
     # Show the created Box
     frame2 = customtkinter.CTkFrame(master=frame, width=600)
     frame2.grid(row=1, column=0, columnspan=2, padx=80)
-    button = customtkinter.CTkButton(frame2, text='Upload Image', font=font, command=lambda: (filename == browse_files(file_text)))
+    button = customtkinter.CTkButton(frame2, text='Upload Image', font=font, command=lambda: browse_files(file_text))
     button.pack(pady=12, padx=10, side=LEFT)
     file_text = Text(frame2, height=1, width=100, state='disabled')
     file_text.pack(pady=12, padx=10, side=LEFT)
-
+    # Make a button for browsing images the window
+    webcam_view(frame1, file_text)
     # Liability button
     frame3 = customtkinter.CTkFrame(master=frame, width=600)
     frame3.grid(row=2, column=0, columnspan=2, pady=20, padx=10)
@@ -133,7 +153,7 @@ def show_main_page_frame(frame, img_frame, font):
     customtkinter.CTkCheckBox(frame3, text='I consent to having the photo and caricature added to a database for facial recognition research purposes only.',
                               variable=checkbutton_var, font=('Times New Roman', 15)).pack(pady=12, padx=10, side=BOTTOM)
     # Caricature button
-    button = customtkinter.CTkButton(frame, text='Create Caricature', font=font, command=lambda: create_caricature(frame, img_frame, filename, checkbutton_var.get(), file_text))
+    button = customtkinter.CTkButton(frame, text='Create Caricature', font=font, command=lambda: create_caricature(frame, img_frame, checkbutton_var.get(), file_text))
     button.grid(row=3, column=0, columnspan=2)
     string_var = StringVar()
     error_label = customtkinter.CTkLabel(frame, textvariable=string_var, font=('Times New Roman', 20))
@@ -142,7 +162,6 @@ def show_main_page_frame(frame, img_frame, font):
 
 # Create user window
 def main(window, frame):
-    global filename
     font = ('Times New Roman', 20)
     mb = Menu(window)
     mb_dropdown = Menu(mb, tearoff=0)
