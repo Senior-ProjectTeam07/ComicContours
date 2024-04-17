@@ -86,7 +86,8 @@ def get_dir(relative_path, return_as_string=True, project_root=None):
 
     # Validate existence of the path
     if not full_path.exists():
-        raise FileNotFoundError(f"The path {full_path} does not exist.")
+        # If the path does not exist, create it
+        os.makedirs(full_path)
 
     logging.debug(f"Returning full path: {full_path}")
 

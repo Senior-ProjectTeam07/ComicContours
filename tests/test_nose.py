@@ -12,18 +12,27 @@ class TestNose(unittest.TestCase):
     def setUp(self):
         self.img = np.zeros((500, 500, 3), dtype=np.uint8)
         self.image_id = 0
-        self.feature_to_int = {'nose': 2}
+        self.feature_to_int = {'Nose': 2}
         self.scale_factor = 1.25
         self.invalid_scale_factor = 3.1
-        self.facial_features = np.array([[self.image_id, self.feature_to_int['nose'], 0, 100, 100],
-                                         [self.image_id, self.feature_to_int['nose'], 0, 400, 400]])
+        self.facial_features = np.array([[self.image_id, self.feature_to_int['Nose'], 0, 100, 100],
+                                         [self.image_id, self.feature_to_int['Nose'], 0, 400, 400]])
 
     @patch('augmentation.nose.load_feature_landmarks')
     @patch('augmentation.nose.resize_and_overlay_feature')
     def test_resize_nose(self, mock_resize_and_overlay, mock_load_feature_landmarks):
         mock_load_feature_landmarks.return_value = self.facial_features[:, 3:5]
         resize_nose(self.img, self.facial_features, self.image_id, self.feature_to_int, self.scale_factor)
-        mock_load_feature_landmarks.assert_called_with(self.facial_features, self.image_id, self.feature_to_int, 'nose')
+
+        # Get the arguments that load_feature_landmarks was last called with
+        load_args, _ = mock_load_feature_landmarks.call_args
+
+        # Verify that the correct indices were used to access the nose features
+        self.assertEqual(type(load_args[2]), dict)
+        self.assertEqual(load_args[2]['Nose'], self.feature_to_int['Nose'])
+        self.assertEqual(load_args[3], 'Nose')
+
+        mock_load_feature_landmarks.assert_called_with(self.facial_features, self.image_id, self.feature_to_int, 'Nose')
 
     @patch('augmentation.nose.load_feature_landmarks')
     @patch('augmentation.nose.resize_and_overlay_feature')
@@ -37,7 +46,7 @@ class TestNose(unittest.TestCase):
 
     def test_no_data_for_nose_feature(self):
         with self.assertRaises(ValueError):
-            resize_nose(self.img, self.facial_features[self.facial_features[:, 1] != self.feature_to_int['nose']], self.image_id, self.feature_to_int, self.scale_factor)
+            resize_nose(self.img, self.facial_features[self.facial_features[:, 1] != self.feature_to_int['Nose']], self.image_id, self.feature_to_int, self.scale_factor)
 
     def test_non_3d_image(self):
         grayscale_img = np.zeros((500, 500), dtype=np.uint8)

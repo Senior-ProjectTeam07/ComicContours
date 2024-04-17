@@ -1,3 +1,13 @@
+# model.py
+
+import sys
+import os
+
+# Get the current directory and parent directory for importing modules
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+
 import math
 import random
 import functools
@@ -10,7 +20,7 @@ from torch.autograd import Function
 
 from torchvision.models import resnet18
 
-from op import FusedLeakyReLU, fused_leaky_relu, upfirdn2d
+from StyleCariGAN.op import FusedLeakyReLU, fused_leaky_relu, upfirdn2d
 
 class ResNet18(nn.Module):
     def __init__(self):
@@ -623,6 +633,82 @@ class Generator(nn.Module):
         else:
             return image, None
 
+class GeneratorWithLandmarkStyles(nn.Module):
+    def __init__(
+        self,
+        landmarks_model,
+        size,
+        style_dim,
+        n_mlp,
+        channel_multiplier=2,
+        blur_kernel=[1, 3, 3, 1],
+        lr_mlp=0.01,
+    ):
+        super().__init__()
+
+        # Initialize landmarks to style model
+        self.landmarks_model = landmarks_model
+        self.landmarks_model.eval()  # Set to eval mode to disable training-specific behaviors
+
+        # Standard StyleCariGAN Generator setup
+        self.size = size
+        self.style_dim = style_dim
+
+        layers = [PixelNorm()]
+        for i in range(n_mlp):
+            layers.append(EqualLinear(style_dim, style_dim, lr_mul=lr_mlp, activation='fused_lrelu'))
+
+        self.style = nn.Sequential(*layers)
+
+        self.channels = {
+            4: 512,
+            8: 512,
+            16: 512,
+            32: 512,
+            64: 256 * channel_multiplier,
+            128: 128 * channel_multiplier,
+            256: 64 * channel_multiplier,
+            512: 32 * channel_multiplier,
+            1024: 16 * channel_multiplier,
+        }
+
+        self.input = ConstantInput(self.channels[4])
+        self.conv1 = StyledConv(self.channels[4], self.channels[4], 3, style_dim, blur_kernel=blur_kernel)
+        self.to_rgb1 = ToRGB(self.channels[4], style_dim, upsample=False)
+
+        # Setup convolution and upsampling layers
+        self.setup_layers()
+
+    def setup_layers(self):
+        self.log_size = int(math.log(self.size, 2))
+        self.num_layers = (self.log_size - 2) * 2 + 1
+
+        self.convs = nn.ModuleList()
+        self.upsamples = nn.ModuleList()
+        self.to_rgbs = nn.ModuleList()
+        self.noises = nn.Module()
+
+        in_channel = self.channels[4]
+        for layer_idx in range(self.num_layers):
+            res = (layer_idx + 5) // 2
+            shape = [1, 1, 2 ** res, 2 ** res]
+            self.noises.register_buffer(f'noise_{layer_idx}', torch.randn(*shape))
+
+        for i in range(3, self.log_size + 1):
+            out_channel = self.channels[2 ** i]
+            self.convs.append(StyledConv(in_channel, out_channel, 3, self.style_dim, upsample=True, blur_kernel=blur_kernel))
+            self.convs.append(StyledConv(out_channel, out_channel, 3, self.style_dim, blur_kernel=blur_kernel))
+            self.to_rgbs.append(ToRGB(out_channel, self.style_dim))
+            in_channel = out_channel
+
+        self.n_latent = self.log_size * 2 - 2
+
+    def forward(self, landmarks, return_latents=False, noise=None, randomize_noise=True):
+        # Convert landmarks to style
+        style = self.landmarks_model(landmarks)
+
+        # Generate images using style
+        return super().forward(style, return_latents=return_latents, noise=noise, randomize_noise=randomize_noise)
 
 class ConvLayer(nn.Sequential):
     def __init__(

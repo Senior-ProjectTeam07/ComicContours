@@ -1,10 +1,18 @@
+import sys
+import os
+
+# Get the current directory and parent directory for importing modules
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+
 import math
 import random
 
 import torch
 from torch import nn
 
-from model import PixelNorm, EqualLinear, ConstantInput, StyledConv, ToRGB, ExaggerationLayer
+from StyleCariGAN.model import PixelNorm, EqualLinear, ConstantInput, StyledConv, ToRGB, ExaggerationLayer
 
 
 class LayerSwapGenerator(nn.Module):

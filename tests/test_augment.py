@@ -8,11 +8,12 @@ parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
 from augmentation.augment import augment_image, augment_nose, augment_eyes
 from utils.file_utils import get_dir
+from utils.landmark_utils import feature_to_int
 
 class TestAugment(unittest.TestCase):
     def setUp(self):
         self.facial_features = np.load(get_dir('data/facial_features.npy'))
-        self.feature_to_int = {'jawline': 0, 'eyebrows': 1, 'nose': 2, 'eyes': 3, 'lips': 4}
+        self.feature_to_int = feature_to_int
         self.image_directory = get_dir('data/original_images')
         self.augmented_directory = get_dir('data/augmented_images')
         self.nose_scale_factor = 1.25
@@ -27,10 +28,10 @@ class TestAugment(unittest.TestCase):
             self.assertIsNotNone(augmented_img)
 
     def test_augment_eyes(self):
+        eyes_scale_factor = 1.25
         for img_path in self.image_paths:
             image_id = self.image_paths.index(img_path)
-            img = cv2.imread(img_path)
-            augmented_img = augment_eyes(img, self.facial_features, image_id, self.feature_to_int)
+            augmented_img = augment_eyes(img_path, self.facial_features, image_id, self.feature_to_int, eyes_scale_factor)  # Pass img_path instead of img
             self.assertIsNotNone(augmented_img)
 
     def test_augment_image(self):

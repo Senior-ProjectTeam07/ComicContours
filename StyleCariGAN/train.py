@@ -1,3 +1,11 @@
+import sys
+import os
+
+# Get the current directory and parent directory for importing modules
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+
 import argparse
 import math
 import os
@@ -14,10 +22,10 @@ from tqdm import tqdm
 
 from facenet_pytorch import InceptionResnetV1
 
-from distributed import (get_rank, get_world_size, reduce_loss_dict,
+from StyleCariGAN.distributed import (get_rank, get_world_size, reduce_loss_dict,
                          reduce_sum, synchronize)
-from exaggeration_model import StyleCariGAN
-from model import Discriminator, Discriminator_feat, ResNet18
+from StyleCariGAN.exaggeration_model import StyleCariGAN
+from StyleCariGAN.model import Discriminator, Discriminator_feat, ResNet18
 
 
 # override requires_grad function

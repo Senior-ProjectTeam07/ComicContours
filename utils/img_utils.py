@@ -217,10 +217,8 @@ def multi_res_blend(mask, source, target):
     return ls_
 
 def poisson_blend(mask, source, target, offset):
-    # Ensure images are float type
+    # Ensure mask is float type and in the range 0-1
     mask = img_as_float(mask)
-    source = img_as_float(source)
-    target = img_as_float(target)
 
     # Define build_matrix function
     def build_matrix(indices):
@@ -235,7 +233,6 @@ def poisson_blend(mask, source, target, offset):
             if i // mask.shape[1] < mask.shape[0] - 1 and i + mask.shape[1] < size: A[i, i + mask.shape[1]] = -1  # down
         return A
 
-    # Define build_b function
     def build_b(source, target, mask, indices):
         size = len(indices)
         b = np.zeros(size)
@@ -244,7 +241,7 @@ def poisson_blend(mask, source, target, offset):
             for i, index in enumerate(indices):
                 y, x = np.unravel_index(index[0], mask.shape[:2])
                 b[i] = 4 * source[y, x, color] if source.ndim > 2 else 4 * source[y, x]
-                if x > 0: b[i] -= source[y[0], x[0] - 1, color[0]] + target[y[0], x[0] - 1, color[0]] * (1 - mask[y[0], x[0] - 1]) if source.ndim > 2 else source[y[0], x[0] - 1] + target[y[0], x[0] - 1] * (1 - mask[y[0], x[0] - 1])
+                if x > 0: b[i] -= source[y, x - 1, color] + target[y, x - 1, color] * (1 - mask[y, x - 1]) if source.ndim > 2 else source[y, x - 1] + target[y, x - 1] * (1 - mask[y, x - 1])
                 if x < mask.shape[1] - 1: b[i] -= source[y, x + 1, color] + target[y, x + 1, color] * (1 - mask[y, x + 1]) if source.ndim > 2 else source[y, x + 1] + target[y, x + 1] * (1 - mask[y, x + 1])
                 if y > 0: b[i] -= source[y - 1, x, color] + target[y - 1, x, color] * (1 - mask[y - 1, x]) if source.ndim > 2 else source[y - 1, x] + target[y - 1, x] * (1 - mask[y - 1, x])
                 if y < mask.shape[0] - 1: b[i] -= source[y + 1, x, color] + target[y + 1, x, color] * (1 - mask[y + 1, x]) if source.ndim > 2 else source[y + 1, x] + target[y + 1, x] * (1 - mask[y + 1, x])
@@ -270,6 +267,9 @@ def poisson_blend(mask, source, target, offset):
     indices = np.argwhere(mask)
     A = build_matrix(indices)
 
+    # Convert A to CSR format
+    A = A.tocsr()
+
     # for each layer (ex. RGB)
     for num_layer in range(source.shape[2]):
         # get subimages
@@ -283,7 +283,7 @@ def poisson_blend(mask, source, target, offset):
         x = spsolve(A, b)
 
         # assign x to target image
-        x = np.clip(x, 0, 1)
+        x = np.clip(x, 0, 255)  # Clip to the range 0-255
         x = np.reshape(x, (len(indices), 1))
         indices_x = np.concatenate((indices, x), axis=1)
         for index in indices_x:

@@ -34,7 +34,7 @@ def resize_nose(img, facial_features, image_id, feature_to_int, scale_factor):
         raise ValueError("Scale factor must be in the range (0, 3].")
     
     try:
-        nose_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'nose')
+        nose_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'Nose')  # Changed 'Nose' to 'nose'
         if nose_landmarks.size == 0:
             raise ValueError("No nose landmarks found for the given image ID.")
     except Exception as e:

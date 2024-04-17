@@ -74,10 +74,10 @@ def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_f
     scaled_feature = cv2.resize(feature_region, (scaled_width, scaled_height), interpolation=cv2.INTER_LINEAR)
 
     # Calculate the overlay positions ensuring they are within bounds
-    overlay_start_x = max(x_min + (feature_width - scaled_width) // 2, 0)
-    overlay_end_x = min(overlay_start_x + scaled_width, img.shape[1])
-    overlay_start_y = max(y_min + (feature_height - scaled_height) // 2, 0)
-    overlay_end_y = min(overlay_start_y + scaled_height, img.shape[0])
+    overlay_start_x = max(min(x_min + (feature_width - scaled_width) // 2, img.shape[1] - scaled_width), 0)
+    overlay_end_x = overlay_start_x + scaled_width
+    overlay_start_y = max(min(y_min + (feature_height - scaled_height) // 2, img.shape[0] - scaled_height), 0)
+    overlay_end_y = overlay_start_y + scaled_height
 
     # Overlay the scaled feature onto the original image
     img[overlay_start_y:overlay_end_y, overlay_start_x:overlay_end_x] = scaled_feature

@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# 300W dataset
+data/300W/*
+
+# StyleCariGAN pre-trained model
+StyleCariGAN/checkpoint/*
+
 # C extensions
 *.so
 

@@ -10,7 +10,7 @@ sys.path.append(parent_directory)
 import os.path
 import database.database_page as cd
 import database.login_page as lp
-import landmarking.landmark as fl
+from landmarking.landmark import landmark
 import augmentation.augment as af
 
 filename = ""
@@ -47,7 +47,7 @@ def create_caricature(fname, checked, text_box):
         text_box.config(state='disabled')
         filename = ''
         # call facial landmarking to update processed photo folder
-        fl.main()
+        landmark()
         af.augment_image()
 
 # Create user window
