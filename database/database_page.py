@@ -62,7 +62,9 @@ def delete_image_of_person():
     os.remove(f'../data/original_images/{img_name}')
     os.remove(f'../data/processed_images/Processed_{img_name}')
     os.remove(f'../data/augmented_images/augmented_{img_name}')
-    os.remove(f'../data/Snapshots/augmented_{img_name}')
+    if 'snapshot_' in img_name:
+        os.remove(f'../data/Snapshots/{img_name}')
+        os.remove(f'../database/Webcam_Snapshots/{img_name}')
 
 def get_photo_folder(type_photo):
     global small_original_list, small_processed_list, small_augmented_list

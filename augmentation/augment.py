@@ -12,6 +12,7 @@ sys.path.append(parent_directory)
 
 # Import necessary modules
 from augmentation.nose import resize_nose, create_nose_mask
+from augmentation.mouth import resize_mouth, create_mouth_mask
 from augmentation.eyes import create_eye_mask
 from landmarking.load import load_feature_landmarks
 from utils.file_utils import get_dir
@@ -34,6 +35,24 @@ def augment_nose(img_path, facial_features, image_id, feature_to_int, nose_scale
     nose_mask_blurred = cv2.GaussianBlur(nose_mask, (0, 0), 21)
     # Blend the original image and the image with the resized nose
     img = img * (nose_mask_blurred / 255) + original_img * (1 - (nose_mask_blurred / 255))
+    return img
+
+# Function to augment the mouth of the image
+def augment_mouth(img, img_path, facial_features, image_id, feature_to_int, mouth_scale_factor):
+    # Read the image
+    path_img = cv2.imread(img_path)
+    # Make a copy of the original image
+    original_img = path_img.copy()
+    # Resize the mouth in the image
+    img_mouth = resize_mouth(img, facial_features, image_id, feature_to_int, mouth_scale_factor)
+    # Load the mouth landmarks
+    mouth_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'lips')
+    # Create a mask for the mouth
+    mouth_mask = create_mouth_mask(original_img, mouth_landmarks, width_margin_factor=0.1, height_margin_factor=0.1)
+    # Blur the mouth mask
+    mouth_mask_blurred = cv2.GaussianBlur(mouth_mask, (0, 0), 21)
+    # Blend the original image and the image with the resized mouth
+    img = img_mouth * (mouth_mask_blurred / 255) + original_img * (1 - (mouth_mask_blurred / 255))
     return img
 
 # Function to augment the eyes of the image
@@ -124,6 +143,7 @@ def augment_image():
     augmented_directory = get_dir('data/augmented_images')
     # Define scale factor for nose augmentation
     nose_scale_factor = 1.25
+    mouth_scale_factor = 1.25
 
     # Create directory for augmented images if it doesn't exist
     if not os.path.exists(augmented_directory):
@@ -139,6 +159,7 @@ def augment_image():
         image_id = image_paths.index(img_path)
         # Augment the nose of the image
         img = augment_nose(img_path, facial_features, image_id, feature_to_int, nose_scale_factor)
+        img = augment_mouth(img, img_path, facial_features, image_id, feature_to_int, mouth_scale_factor)
         # Augment the eyes of the image
         img = augment_eyes(img, facial_features, image_id, feature_to_int)
         # Define the name and path for the augmented image
