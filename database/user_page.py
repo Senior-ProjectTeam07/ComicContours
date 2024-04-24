@@ -1,6 +1,11 @@
 # user_page.py
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+from tkinter import Tk, Label, Button, E, W, INSERT, Text, filedialog, Checkbutton, BooleanVar, messagebox, Menu
+import shutil
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 from tkinter import Tk, Label, Button, E, W, INSERT, Text, filedialog, Checkbutton, BooleanVar, messagebox, Menu
 import shutil
@@ -13,6 +18,7 @@ sys.path.append(parent_directory)
 import os.path
 import database.database_page as cd
 import database.login_page as lp
+<<<<<<< HEAD
 <<<<<<< HEAD
 import database.about_page as about
 from database.camera_webcam import get_filename, has_a_image, start_webcam, camera_status
@@ -87,6 +93,8 @@ def create_caricature(frame, aug_frame, checked, text_box):
         folder = os.path.abspath("../data/Snapshots")
         print(folder)
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 import landmarking.landmark as fl
 import augmentation.augment as af
 
@@ -118,6 +126,9 @@ def create_caricature(fname, checked, text_box):
         messagebox.showerror('Error', 'Error: Please check consent box!')
     if not(fname == '') and (checked is True):
         folder = os.path.abspath("./data/original_images")
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
         shutil.copy(fname, folder)
         text_box.config(state='normal')
@@ -127,6 +138,7 @@ def create_caricature(fname, checked, text_box):
         # call facial landmarking to update processed photo folder
         fl.main()
         af.augment_image()
+<<<<<<< HEAD
 <<<<<<< HEAD
         error_label = customtkinter.CTkLabel(frame, text="Successfully Created Caricature!", text_color="green", font=('Times New Roman', 20))
         error_label.grid(row=4, column=0, columnspan=2)
@@ -218,6 +230,8 @@ def main(window, frame):
     main_frame.tkraise()
     # image_frame.tkraise()
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 
 # Create user window
 def main():
@@ -247,11 +261,15 @@ def main():
     # Caricature button
     button = Button(window, text='Create Caricature', width=25, command=lambda: create_caricature(filename, checkbutton_var.get(), file_text))
     button.grid(row=12, column=1, pady=10, padx=10, sticky=E)
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # Run forever
     window.mainloop()
 
 if __name__ == "__main__":
+<<<<<<< HEAD
 <<<<<<< HEAD
     # database
     lp.make_user_database()
@@ -269,6 +287,9 @@ if __name__ == "__main__":
     main(window, frame)
     # Run forever
     window.mainloop()
+=======
+    main()
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
     main()
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96

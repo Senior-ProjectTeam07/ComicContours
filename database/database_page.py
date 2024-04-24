@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import numpy as np
 import cv2
 from PIL import ImageTk
@@ -7,16 +8,22 @@ from tkinter import *
 from tkinter import filedialog
 import customtkinter
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 
 from PIL import ImageTk
 import PIL.Image
 from tkinter import Tk, Label, Button, Frame, Canvas, Scrollbar, DISABLED, Menu
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 import sys
 import os
 current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
+<<<<<<< HEAD
 <<<<<<< HEAD
 import database.user_page as up
 import database.login_page as lp
@@ -84,6 +91,8 @@ def get_photo_folder(type_photo):
     if type_photo == "Augmented Photos":
         dir_path = '../data/augmented_images'
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 import user_page as up
 import login_page as ip
 
@@ -107,6 +116,9 @@ def get_photo_folder(type_photo):
         dir_path = './Augmentation_Project/processed_images'
     if type_photo == "Augmented Photos":
         dir_path = './Augmentation_Project/augmented_images'
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     folder = os.listdir(dir_path)
     image_list = []
@@ -117,6 +129,7 @@ def get_photo_folder(type_photo):
         resized_img = image.resize((500, 400))
         img = ImageTk.PhotoImage(resized_img)
         image_list.append(img)
+<<<<<<< HEAD
 <<<<<<< HEAD
         if type_photo == "Original Photos":
             resized_img = image.resize((100, 50))
@@ -137,11 +150,17 @@ def get_photo_folder(type_photo):
 
 
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
+    return num_images, image_list
+
+
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 def back(img_no, label, tot_img, btn_fwd, btn_back, frame):
     global original_list, processed_list, augmented_list
     label.grid_forget()
     btn_fwd.grid_forget()
     btn_back.grid_forget()
+<<<<<<< HEAD
 <<<<<<< HEAD
     label = get_frame_img(frame, img_no)
     btn_fwd = customtkinter.CTkButton(frame, text="Forward", command=lambda: forward(img_no+1, label, tot_img, btn_fwd, btn_back, frame))
@@ -151,6 +170,8 @@ def back(img_no, label, tot_img, btn_fwd, btn_back, frame):
     if img_no == 0:
         btn_back = customtkinter.CTkButton(frame, text="Back", state=DISABLED)
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # for changing image that is displayed, resetting buttons
     if frame == orig_frame:
         label = Label(frame, image=original_list[img_no])
@@ -164,12 +185,19 @@ def back(img_no, label, tot_img, btn_fwd, btn_back, frame):
     # whenever the first image, have the back button disabled
     if img_no == 0:
         btn_back = Button(frame, text="Back", state=DISABLED)
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     label.grid(row=1, column=0, columnspan=3, padx=20)
     btn_back.grid(row=5, column=0)
     btn_fwd.grid(row=5, column=2)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
@@ -179,6 +207,7 @@ def forward(img_no, label, tot_img, btn_fwd, btn_back, frame):
     btn_fwd.grid_forget()
     btn_back.grid_forget()
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     label = get_frame_img(frame, img_no)
     # img_no+1 as we want the next image to pop up when clik forward
@@ -191,6 +220,8 @@ def forward(img_no, label, tot_img, btn_fwd, btn_back, frame):
     # img_no-1 as we want previous image when click back
     btn_back = customtkinter.CTkButton(frame, text="Back", command=lambda: back(img_no-1, label, tot_img, btn_fwd, btn_back, frame))
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # for getting image that is displayed, resetting buttons
     if frame == orig_frame:
         label = Label(frame, image=original_list[img_no])
@@ -207,6 +238,9 @@ def forward(img_no, label, tot_img, btn_fwd, btn_back, frame):
         btn_back = Button(frame, text="Back", state=DISABLED)
     # img_no-1 as we want previous image when click back
     btn_back = Button(frame, text="Back", command=lambda: back(img_no-1, label, tot_img, btn_fwd, btn_back, frame))
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # Placing the button in new grid
     label.grid(row=1, column=0, columnspan=3, padx=20)
@@ -214,6 +248,10 @@ def forward(img_no, label, tot_img, btn_fwd, btn_back, frame):
     btn_fwd.grid(row=5, column=2)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
@@ -223,6 +261,7 @@ def jump_to_photo(img_no, label, btn_fwd, btn_back, tot_img, frame):
     btn_fwd.grid_forget()
     btn_back.grid_forget()
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     label = get_frame_img(frame, img_no)
     if img_no == tot_img:
@@ -234,6 +273,8 @@ def jump_to_photo(img_no, label, btn_fwd, btn_back, tot_img, frame):
     else:
         btn_back = customtkinter.CTkButton(frame, text="Back", command=lambda: back(img_no-1, label, tot_img, btn_fwd, btn_back, frame))
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # for getting the image that is displayed, resetting buttons
     if frame == orig_frame:
         label = Label(frame, image=original_list[img_no])
@@ -249,12 +290,16 @@ def jump_to_photo(img_no, label, btn_fwd, btn_back, tot_img, frame):
         btn_back = Button(frame, text="Back", state=DISABLED)
     else:
         btn_back = Button(frame, text="Back", command=lambda: back(img_no-1, label, tot_img, btn_fwd, btn_back, frame))
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # Placing the button in new grid
     label.grid(row=1, column=0, columnspan=3, padx=20)
     btn_back.grid(row=5, column=0)
     btn_fwd.grid(row=5, column=2)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 def make_frame_btns(frame):
     # makes buttons that switch to other frames
@@ -276,6 +321,8 @@ def make_frame_btns(frame):
 def make_frame(frame):
     global original_list, processed_list, augmented_list, current_img, current_num
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 
 def make_frame_btns(frame):
     # makes buttons that switch to other frames
@@ -297,6 +344,9 @@ def make_frame_btns(frame):
 
 def make_frame(frame):
     global original_list, processed_list, augmented_list
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # make original photo, processed photo, and augmented photo buttons
     make_frame_btns(frame)
@@ -304,6 +354,7 @@ def make_frame(frame):
     num_img = 0
     if frame == orig_frame:
         num_img, original_list = get_photo_folder("Original Photos")
+<<<<<<< HEAD
 <<<<<<< HEAD
     if frame == process_frame:
         num_img, processed_list = get_photo_folder("Processed Photos")
@@ -345,6 +396,8 @@ def make_frame(frame):
     btn_frame.update_idletasks()
     btn_width = (button[0].winfo_width())
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
         label = Label(orig_frame, image=original_list[0])
         label.grid(row=1, column=0, columnspan=3, padx=20)
     if frame == process_frame:
@@ -386,12 +439,16 @@ def make_frame(frame):
         button[i].grid(row=i, column=0, sticky="news")
     btn_frame.update_idletasks()
     btn_width = 2*(button[0].winfo_width())
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # set scroll bar to only display 14 num buttons, otherwise need to scroll
     if num_img <= 14:
         btn_height = sum(button[i].winfo_height() for i in range(0, num_img+1))
     else:
         btn_height = sum(button[i].winfo_height() for i in range(0, 15))
+<<<<<<< HEAD
 <<<<<<< HEAD
     canvas.configure(width=btn_width)
     frame_canvas.configure(width=btn_width, height=btn_height)
@@ -446,6 +503,8 @@ if __name__ == "__main__":
     main(window, frame)
 
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     frame_canvas.config(width=btn_width, height=btn_height)
     canvas.config(scrollregion=canvas.bbox("all"))
 
@@ -479,4 +538,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96

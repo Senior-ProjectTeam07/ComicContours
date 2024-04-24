@@ -13,7 +13,10 @@ sys.path.append(parent_directory)
 # Import necessary modules
 from augmentation.nose import resize_nose, create_nose_mask
 <<<<<<< HEAD
+<<<<<<< HEAD
 from augmentation.mouth import resize_mouth, create_mouth_mask
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 from augmentation.eyes import create_eye_mask
@@ -41,6 +44,7 @@ def augment_nose(img_path, facial_features, image_id, feature_to_int, nose_scale
     return img
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Function to augment the mouth of the image
 def augment_mouth(img, img_path, facial_features, image_id, feature_to_int, mouth_scale_factor):
     # Read the image
@@ -59,6 +63,8 @@ def augment_mouth(img, img_path, facial_features, image_id, feature_to_int, mout
     img = img_mouth * (mouth_mask_blurred / 255) + original_img * (1 - (mouth_mask_blurred / 255))
     return img
 
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 # Function to augment the eyes of the image
@@ -150,7 +156,10 @@ def augment_image():
     # Define scale factor for nose augmentation
     nose_scale_factor = 1.25
 <<<<<<< HEAD
+<<<<<<< HEAD
     mouth_scale_factor = 1.25
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 
@@ -169,7 +178,10 @@ def augment_image():
         # Augment the nose of the image
         img = augment_nose(img_path, facial_features, image_id, feature_to_int, nose_scale_factor)
 <<<<<<< HEAD
+<<<<<<< HEAD
         img = augment_mouth(img, img_path, facial_features, image_id, feature_to_int, mouth_scale_factor)
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
         # Augment the eyes of the image
@@ -179,7 +191,11 @@ def augment_image():
         augmented_img_path = os.path.join(augmented_directory, augmented_img_name)
         # Save the augmented image
 <<<<<<< HEAD
+<<<<<<< HEAD
         cv2.imwrite(augmented_img_path, img)
+=======
+        cv2.imwrite(augmented_img_path, img)
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
         cv2.imwrite(augmented_img_path, img)
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96

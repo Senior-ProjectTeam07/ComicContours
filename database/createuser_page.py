@@ -1,9 +1,13 @@
 # create_user_page.py
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 from tkinter import *
 import customtkinter
 from PIL import Image
+=======
+import tkinter as tk
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 import tkinter as tk
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
@@ -23,7 +27,11 @@ def make_user_database():
     connection = sqlite3.connect('user_data.db')
     user = connection.cursor()
 <<<<<<< HEAD
+<<<<<<< HEAD
     user.execute('''CREATE TABLE IF NOT EXISTS 'users' (id text, email text, password text, unique(email))''')
+=======
+    user.execute('''CREATE TABLE IF NOT EXISTS 'users' (id text, email text, password text, unique(email)''')
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
     user.execute('''CREATE TABLE IF NOT EXISTS 'users' (id text, email text, password text, unique(email)''')
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
@@ -35,7 +43,11 @@ def hash_password(password):
 
 # Function to add a new user to the database
 <<<<<<< HEAD
+<<<<<<< HEAD
 def add_user_data(frame, name, email, hashed_password):
+=======
+def add_user_data(window, name, email, hashed_password):
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 def add_user_data(window, name, email, hashed_password):
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
@@ -45,7 +57,11 @@ def add_user_data(window, name, email, hashed_password):
         new_user.execute("INSERT Into users VALUES(?,?,?)", [name, email, hashed_password])
     except sqlite3.Error:
 <<<<<<< HEAD
+<<<<<<< HEAD
         lp.error_message_box(frame, "Error: Email already in use", "red")
+=======
+        show_message(window, "Error: Email already in use", "red")
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
         show_message(window, "Error: Email already in use", "red")
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
@@ -70,9 +86,15 @@ def is_password_strong(password):
         return False, "Password must contain a digit"
     if not(any(char.isupper() for char in password)):
 <<<<<<< HEAD
+<<<<<<< HEAD
         return False, "Password must contain a uppercase letter"
     if not(any(char.islower() for char in password)):
         return False, "Password must contain an lowercase letter"
+=======
+        return False, "Password must contain a lowercase letter"
+    if not(any(char.islower() for char in password)):
+        return False, "Password must contain an uppercase letter"
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
         return False, "Password must contain a lowercase letter"
     if not(any(char.islower() for char in password)):
@@ -82,6 +104,7 @@ def is_password_strong(password):
         return False, "Password must contain a special character"
     return True, ""
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 # Modified function to create account
 def create_account(win, frame, name, email, password, verify_password):
@@ -153,6 +176,8 @@ if __name__ == "__main__":
     # Run forever
     window.mainloop()
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 # Function to show a message
 def show_message(window, message, color):
     message_label = tk.Label(window, text=message, fg=color)
@@ -220,4 +245,7 @@ def create_user():
 if __name__ == "__main__":
     make_user_database()
     create_user()
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96

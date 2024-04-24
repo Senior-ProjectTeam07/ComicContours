@@ -1,6 +1,7 @@
 # login_page.py
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import sys
 import os
 from tkinter import *
@@ -16,6 +17,8 @@ parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
 
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 from tkinter import Tk, Label, Entry, Button
 import bcrypt
 import sqlite3
@@ -27,6 +30,9 @@ sys.path.append(parent_directory)
 import database.createuser_page as cu
 import database.user_page as up
 import database.forgotpassword_page as fp
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 
 # Make database if not exist
@@ -52,6 +58,7 @@ def verify_credentials(email, password):
         return False
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 def clear_frame(frame):
     for widgets in frame.winfo_children():
@@ -105,6 +112,8 @@ def create_main_page(window, frame):
     label.bind("<Button-1>", lambda e: open_forgot_password_window(window, frame))
     label.pack(pady=12, padx=10, anchor='w', side=BOTTOM)
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 # Open user window
 def open_user_window(win, email, password):
     if verify_credentials(email, password):
@@ -131,6 +140,9 @@ def error_message_box(win, message):
     error_label = Label(win, text=message, fg="red")
     error_label.grid(row=6, column=2)
     win.after(3500, error_label.destroy)
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 
 
@@ -138,6 +150,7 @@ def error_message_box(win, message):
 def main():
     # database
     make_user_database()
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     # create main window
@@ -152,6 +165,8 @@ def main():
     frame.pack(pady=10, padx=0, expand=TRUE, fill='none')
     create_main_page(window, frame)
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # create main window
     window = Tk()
     window.title('Facial Feature Augmentation using GAN')
@@ -173,6 +188,9 @@ def main():
     login_button.grid(row=4, column=2)
     create_account_button = Button(window, text='Create Account', width=15, command=lambda: open_create_user_window(window))
     create_account_button.grid(row=5, column=1)
+<<<<<<< HEAD
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
+=======
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
     # Run forever
     window.mainloop()

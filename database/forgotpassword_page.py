@@ -1,7 +1,11 @@
 # forgotpassword_page.py
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 from tkinter import *
+=======
+from tkinter import Tk, Label, Entry, Button
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 =======
 from tkinter import Tk, Label, Entry, Button
 >>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
@@ -24,7 +28,10 @@ sys.path.append(parent_directory)
 import database.login_page as lp
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> ea733d2c58fe005ecb33c010077b68f1589e4d96
 # Make database if not exist
 def make_user_database():
     connection = sqlite3.connect('user_data.db')
