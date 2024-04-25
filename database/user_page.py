@@ -44,7 +44,6 @@ def message_box(frame, message, color, row, column, columnspan):
 def set_filename():
     global filename
     filename = ''
-    print(filename, 'set file')
 
 def browse_files(text):
     global filename
@@ -94,6 +93,11 @@ def create_caricature(frame, aug_frame, checked, text_box):
         show_images_frame(aug_frame, frame, ('Times New Roman', 20), fname)
         aug_frame.tkraise()
 
+def get_main_frame(frame, main_frame):
+    lp.clear_frame(frame)
+    frame.destroy()
+    main_frame.tkraise()
+
 def check_snapshot(filename, file_text):
     if (filename == '') and (file_text.get(1.0, "end-1c") == '') and (has_a_image()):
         filename = get_filename()
@@ -107,32 +111,34 @@ def webcam_view(frame1, file_text):
 
 def show_images_frame(frame, main_frame, font, file):
     # Make a label for the window
-    frame1 = customtkinter.CTkFrame(master=frame, width=600, height=800)
-    frame1.grid(row=0, column=0, columnspan=2)
+    frame_width, frame_height = main_frame.winfo_width(), main_frame.winfo_height()
+    frame1 = customtkinter.CTkFrame(master=frame, width=frame_width, height=800)
+    frame1.grid(row=0, column=0, columnspan=2, padx=80, pady=80)
+    frame1.columnconfigure(index=0, weight=1)
+    frame1.rowconfigure(index=1, weight=1)
     customtkinter.CTkLabel(frame1, text="Welcome to Facial Feature Augmentation", font=font).grid(row=0,
                                                                                                   column=0,
                                                                                                   columnspan=2,
-                                                                                                  pady=50)
+                                                                                                  pady=60)
     if not(file == ''):
         label = Label(frame1, width=550, height=450)
         imgtk = ImageTk.PhotoImage(Image.open(file))
         label.imgtk = imgtk
         label.configure(image=imgtk)
-        label.grid(row=1, column=0, padx=5, pady=60)
+        label.grid(row=1, column=0, padx=80, pady=60)
         newfile = f"../data/augmented_images/augmented_{os.path.basename(file)}"
-        a_image = customtkinter.CTkImage(light_image=Image.open(newfile), dark_image=Image.open(newfile), size=(550, 450))
         aug_image = Label(frame1, width=550, height=450)
         imgtk = ImageTk.PhotoImage(Image.open(newfile))
         aug_image.imgtk = imgtk
         aug_image.configure(image=imgtk)
-        aug_image.grid(row=1, column=1, padx=5, pady=80)
+        aug_image.grid(row=1, column=1, padx=80, pady=60)
 
     # Liability button
-    customtkinter.CTkButton(frame1, text='Return to main Page', font=font, command=lambda: main_frame.tkraise()).grid(row=2, column=0, columnspan=2)
+    customtkinter.CTkButton(frame1, text='Return to main Page', font=font, command=lambda: get_main_frame(frame1, main_frame)).grid(row=2, column=0, columnspan=2)
 
 def show_main_page_frame(frame, img_frame, font):
     # Make a label for the window
-    frame1 = customtkinter.CTkFrame(master=frame, width=600, height=800)
+    frame1 = customtkinter.CTkFrame(master=frame)
     frame1.grid(row=0, column=0, columnspan=2, pady=20)
     customtkinter.CTkLabel(frame1, text="Welcome to Facial Feature Augmentation", font=font).grid(row=0, column=1)
 
@@ -151,6 +157,7 @@ def show_main_page_frame(frame, img_frame, font):
     checkbutton_var = BooleanVar()
     customtkinter.CTkCheckBox(frame3, text='I consent to having the photo and caricature added to a database for facial recognition research purposes only.',
                               variable=checkbutton_var, font=('Times New Roman', 15)).pack(pady=12, padx=10, side=BOTTOM)
+
     # Caricature button
     button = customtkinter.CTkButton(frame, text='Create Caricature', font=font, command=lambda: create_caricature(frame, img_frame, checkbutton_var.get(), file_text))
     button.grid(row=3, column=0, columnspan=2)
@@ -168,11 +175,10 @@ def main(window, frame):
     mb_dropdown.add_command(label="Database", command=lambda: open_database(window, frame))
     mb.add_cascade(label="Menu", menu=mb_dropdown)
     window.config(menu=mb)
-    main_frame = customtkinter.CTkFrame(frame, width=600, height=800)
-    image_frame = customtkinter.CTkFrame(frame, width=600, height=800)
+    main_frame = customtkinter.CTkFrame(frame)
+    image_frame = customtkinter.CTkFrame(frame)
     show_main_page_frame(main_frame, image_frame, font)
-    frame_width, frame_height = main_frame.winfo_width(), main_frame.winfo_height()
-    image_frame.configure(width=frame_width, height=frame_height)
+    show_images_frame(image_frame, main_frame, font, file='')
     main_frame.grid(row=0, column=0)
     image_frame.grid(row=0, column=0)
     main_frame.tkraise()
@@ -191,7 +197,7 @@ if __name__ == "__main__":
     window.after(0, lambda: window.wm_state('zoomed'))
     window.minsize(450, 550)
     # Create frame
-    frame = customtkinter.CTkFrame(master=window, width=300)
+    frame = customtkinter.CTkFrame(master=window)
     frame.pack(pady=10, padx=0, expand=TRUE, fill='none')
     # Create layout
     main(window, frame)
