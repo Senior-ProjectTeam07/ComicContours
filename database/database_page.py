@@ -4,7 +4,12 @@ from PIL import ImageTk
 import PIL.Image
 from tkinter import *
 from tkinter import filedialog
+import cloudstorage
 import customtkinter
+from instapy_cli import client
+from google.appengine.api import app_identity
+import datetime
+from google.cloud import storage
 import sys
 import os
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -15,6 +20,10 @@ import database.login_page as lp
 import database.about_page as ap
 original_list, processed_list, augmented_list, current_img, current_num = [], [], [], '', 0
 small_original_list, small_processed_list, small_augmented_list = [], [], []
+window = ''
+from google.appengine.ext import testbed
+from google.appengine.ext import db
+from google.cloud import datastore
 
 def open_user_window(wind, frame):
     lp.clear_frame(frame)
@@ -81,7 +90,7 @@ def get_photo_folder(type_photo):
     for num_images, file in enumerate(folder):
         img_path = os.path.join(dir_path, file)
         image = PIL.Image.open(img_path)
-        resized_img = image.resize((500, 400))
+        resized_img = image.resize((700, 600))
         img = ImageTk.PhotoImage(resized_img)
         image_list.append(img)
         if type_photo == "Original Photos":
@@ -154,6 +163,52 @@ def jump_to_photo(img_no, label, btn_fwd, btn_back, tot_img, frame):
     label.grid(row=1, column=0, columnspan=3, padx=20)
     btn_back.grid(row=5, column=0)
     btn_fwd.grid(row=5, column=2)
+def upload_to_insta(username, password, caption):
+    global current_img
+    img = ImageTk.getimage(current_img)
+    username = username
+    password = password
+    image = img
+    text = caption
+    with client(username, password) as cli:
+        cli.upload(image, text)
+def insta_popup():
+    global window
+    top = Toplevel(window)
+    top.title("Insta Window")
+    # top.geometry('400x200')
+    customtkinter.CTkLabel(top, text="Please Enter Instagram Information to Upload", text_color='black').pack()
+    user_entry = customtkinter.CTkEntry(top, placeholder_text="Username", font=('Times New Roman', 20), width=200)
+    user_entry.pack()
+    password_entry = customtkinter.CTkEntry(top, show="*", placeholder_text="Password", font=('Times New Roman', 20), width=200)
+    password_entry.pack()
+    caption_entry = customtkinter.CTkEntry(top, placeholder_text="Caption", font=('Times New Roman', 20), width=200)
+    caption_entry.pack()
+    login_button = customtkinter.CTkButton(top, text='Login', font=('Times New Roman', 20), command=lambda: upload_to_insta(user_entry.get(), password_entry.get(), caption_entry.get()))
+    login_button.pack()
+
+def upload_cloud_file(frame):
+    global current_img, current_num
+    image = current_img
+    folder = os.listdir('../data/original_images')
+    filename = folder[current_num]
+    bucket_name = '<bucket_name>'
+    # Explicitly use service account credentials by specifying the private key
+    # file.
+    try:
+        storage_client = storage.Client.from_service_account_json('creds.json')
+        # or storage_client = storage.Client.from_service_account_json('key.json')
+        bucket = storage_client.get_bucket(bucket_name)
+        blob = bucket.blob('chosen-path-to-object/{name-of-object}')
+        blob.upload_from_filename(filename)
+        error_label = customtkinter.CTkLabel(frame, text="Successful", text_color='green')
+        error_label.grid(row=1, column=0, columnspan=2)
+        frame.after(3500, error_label.destroy)
+        return blob.public_url
+    except:
+        error_label = customtkinter.CTkLabel(frame, text="Please install google cloud platform", text_color='red')
+        error_label.grid(row=1, column=0, columnspan=2)
+        frame.after(3500, error_label.destroy)
 
 def make_frame_btns(frame):
     # makes buttons that switch to other frames
@@ -228,25 +283,33 @@ def make_frame(frame):
     frame_canvas.configure(width=btn_width, height=btn_height)
     canvas.configure(scrollregion=canvas.bbox("all"))
     button_download = customtkinter.CTkButton(frame_btns, text="Download image", fg_color='dark blue', command=lambda: browse_files())
-    button_delete = customtkinter.CTkButton(frame_btns, text="Delete image", fg_color='dark blue', command=lambda :delete_image_of_person())
+    button_delete = customtkinter.CTkButton(frame_btns, text="Delete image", fg_color='dark blue', command=lambda: delete_image_of_person())
+    insta_img = customtkinter.CTkImage(PIL.Image.open("./icons/Instagram_icon.png"), size=(30, 30))
+    icloud_img = customtkinter.CTkImage(PIL.Image.open("./icons/google_cloud.png"), size=(30, 30))
+    social_frame = customtkinter.CTkFrame(frame_btns, bg_color='black')
+    button_insta = customtkinter.CTkButton(social_frame, text="", fg_color='dark blue', image=insta_img, width=30, command=lambda: insta_popup())
+    button_cloud = customtkinter.CTkButton(social_frame, text="", fg_color='dark blue', image=icloud_img, width=30, command=lambda: upload_cloud_file(social_frame))
     frame_btns.grid(row=0, column=6, rowspan=3, sticky='nw', pady=20)
     customtkinter.CTkLabel(frame_btns, text="Jump to photo", text_color='grey').pack()
     frame_canvas.pack()
     button_download.pack(pady=15)
     button_delete.pack()
+    social_frame.pack(pady=10)
+    button_insta.grid(row=0, column=0)
+    button_cloud.grid(row=0, column=1)
     button_back.grid(row=5, column=0)
     button_forward.grid(row=5, column=2)
 
-# Main #
-def main(window, frame):
-    global orig_frame, process_frame, augmented_frame
+# Main
+def main(wind, frame):
+    global orig_frame, process_frame, augmented_frame, window
     # create window
-
+    window = wind
     mb = Menu(window)
     mb_dropdown = Menu(mb, tearoff=0)
-    mb_dropdown.add_command(label="Logout",  command=lambda: open_login_window(window, frame))
-    mb_dropdown.add_command(label="About", command=lambda: open_about(window, frame))
-    mb_dropdown.add_command(label="Main Page",  command=lambda: open_user_window(window, frame))
+    mb_dropdown.add_command(label="Logout", font=('Times New Roman', 20), command=lambda: open_login_window(window, frame))
+    mb_dropdown.add_command(label="About", font=('Times New Roman', 20), command=lambda: open_about(window, frame))
+    mb_dropdown.add_command(label="Main Page", font=('Times New Roman', 20), command=lambda: open_user_window(window, frame))
     mb.add_cascade(label="Menu", menu=mb_dropdown)
     window.config(menu=mb)
     orig_frame = customtkinter.CTkFrame(frame)

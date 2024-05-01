@@ -97,8 +97,8 @@ def multiply_mouth_mask(mouth_mask1, mouth_mask2, img, original_img):
     # Multiply the image and original image by the masks and inverse masks respectively
     img1 = cv2.multiply(img, mouth_mask1[:, :, None])
     img2 = cv2.multiply(img, mouth_mask2[:, :, None])
-    original_img1 = cv2.multiply(original_img, inverse_mouth_mask1[:, :, None])
-    original_img2 = cv2.multiply(original_img, inverse_mouth_mask2[:, :, None])
+    original_img1 = cv2.multiply(img, inverse_mouth_mask1[:, :, None])
+    original_img2 = cv2.multiply(img, inverse_mouth_mask2[:, :, None])
     # Add the four images together
     result = cv2.add(img1, original_img1)
     result = cv2.add(result, img2)

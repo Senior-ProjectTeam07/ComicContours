@@ -24,7 +24,6 @@ def error_message_box(frame, message, color):
 
 def get_filename():
     global file
-    print(file)
     return file
 
 
@@ -62,7 +61,6 @@ def snapshot(root):
     image_paths = [os.path.join('../data/Snapshots', filename) for filename in os.listdir('../data/Snapshots') if
                        filename.lower().endswith(('.png', '.jpg', '.jpeg'))]
     count = len(image_paths) + 1
-    print(count)
     if state is True:
         error_message_box(root, "Please Capture Photo", 'red')
     elif image is None:

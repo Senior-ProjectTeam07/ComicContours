@@ -32,9 +32,9 @@ def open_database(wind, frame):
 def main(window, frame):
     mb = Menu(window)
     mb_dropdown = Menu(mb, tearoff=0)
-    mb_dropdown.add_command(label="Logout", command=lambda: open_login(window, frame))
-    mb_dropdown.add_command(label="Main Page", command=lambda: open_user(window, frame))
-    mb_dropdown.add_command(label="Database", command=lambda: open_database(window, frame))
+    mb_dropdown.add_command(label="Logout", font=('Times New Roman', 20), command=lambda: open_login(window, frame))
+    mb_dropdown.add_command(label="Main Page", font=('Times New Roman', 20), command=lambda: open_user(window, frame))
+    mb_dropdown.add_command(label="Database", font=('Times New Roman', 20), command=lambda: open_database(window, frame))
     mb.add_cascade(label="Menu", menu=mb_dropdown)
     window.config(menu=mb)
     frame.destroy()

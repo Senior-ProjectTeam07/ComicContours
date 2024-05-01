@@ -47,23 +47,17 @@ def set_filename():
 
 def browse_files(text):
     global filename
-    if has_a_image() is False:
-        filename = filedialog.askopenfilename(initialdir="/", title="Select a File", filetypes=[("JPG", "*.jpg "),
+    filename = filedialog.askopenfilename(initialdir="/", title="Select a File", filetypes=[("JPG", "*.jpg "),
                                                                                                 ("JPEG", "*.jpeg")])
-        text.config(state='normal')
-        text.insert(INSERT, filename)
-        text.config(state='disabled')
-    else:
-        filename = filedialog.askopenfilename(initialdir="/", title="Select a File", filetypes=[("JPG", "*.jpg "),
-                                                                                                ("JPEG", "*.jpeg")])
+    if has_a_image() is True:
         start_webcam()
-        text.config(state='normal')
-        text.insert(INSERT, filename)
-        text.config(state='disabled')
+    text.config(state='normal')
+    text.insert(INSERT, filename)
+    text.config(state='disabled')
 
-def create_caricature(frame, aug_frame, checked, text_box):
+def create_caricature(frame, aug_frame, checked, text_box, button):
+    button['state'] = 'disabled'
     global filename
-    print(filename, "create caricture")
     fname = filename
     fname = check_snapshot(fname, text_box)
     #  copy image
@@ -78,7 +72,6 @@ def create_caricature(frame, aug_frame, checked, text_box):
         folder = os.path.abspath("../data/original_images")
         shutil.copy(fname, folder)
         folder = os.path.abspath("../data/Snapshots")
-        print(folder)
         shutil.copy(fname, folder)
         text_box.config(state='normal')
         text_box.delete("1.0", "end")
@@ -92,6 +85,7 @@ def create_caricature(frame, aug_frame, checked, text_box):
         frame.after(3500, error_label.destroy)
         show_images_frame(aug_frame, frame, ('Times New Roman', 20), fname)
         aug_frame.tkraise()
+    button['state'] = 'normal'
 
 def get_main_frame(frame, main_frame):
     lp.clear_frame(frame)
@@ -101,7 +95,6 @@ def get_main_frame(frame, main_frame):
 def check_snapshot(filename, file_text):
     if (filename == '') and (file_text.get(1.0, "end-1c") == '') and (has_a_image()):
         filename = get_filename()
-        print('snapshot', filename)
         return filename
     else:
         return filename
@@ -121,20 +114,33 @@ def show_images_frame(frame, main_frame, font, file):
                                                                                                   columnspan=2,
                                                                                                   pady=60)
     if not(file == ''):
-        label = Label(frame1, width=550, height=450)
-        imgtk = ImageTk.PhotoImage(Image.open(file))
+        label = Label(frame1, width=550, height=400)
+        image = Image.open(file)
+        img = image.resize((550, 400))
+        imgtk = ImageTk.PhotoImage(img)
         label.imgtk = imgtk
         label.configure(image=imgtk)
-        label.grid(row=1, column=0, padx=80, pady=60)
+        label.grid(row=1, column=0, padx=5, pady=60)
         newfile = f"../data/augmented_images/augmented_{os.path.basename(file)}"
-        aug_image = Label(frame1, width=550, height=450)
-        imgtk = ImageTk.PhotoImage(Image.open(newfile))
+        aug_image = Label(frame1, width=550, height=400)
+        image = Image.open(newfile)
+        img = image.resize((550, 400))
+        imgtk = ImageTk.PhotoImage(img)
         aug_image.imgtk = imgtk
         aug_image.configure(image=imgtk)
-        aug_image.grid(row=1, column=1, padx=80, pady=60)
+        aug_image.grid(row=1, column=1, padx=5, pady=60)
+        # newfile2 = f"../data/caricature_images/caricature_{os.path.basename(file)}"
+        newfile2 = f"../data/caricature_images/bj_novak.jpeg"
+        car_image = Label(frame1, width=550, height=400)
+        image = Image.open(newfile2)
+        img = image.resize((550, 400))
+        imgtk = ImageTk.PhotoImage(img)
+        car_image.imgtk = imgtk
+        car_image.configure(image=imgtk)
+        car_image.grid(row=1, column=3, padx=5, pady=60)
 
     # Liability button
-    customtkinter.CTkButton(frame1, text='Return to main Page', font=font, command=lambda: get_main_frame(frame1, main_frame)).grid(row=2, column=0, columnspan=2)
+    customtkinter.CTkButton(frame1, text='Return to main Page', font=font, command=lambda: get_main_frame(frame1, main_frame)).grid(row=2, column=1, columnspan=2)
 
 def show_main_page_frame(frame, img_frame, font):
     # Make a label for the window
@@ -159,7 +165,7 @@ def show_main_page_frame(frame, img_frame, font):
                               variable=checkbutton_var, font=('Times New Roman', 15)).pack(pady=12, padx=10, side=BOTTOM)
 
     # Caricature button
-    button = customtkinter.CTkButton(frame, text='Create Caricature', font=font, command=lambda: create_caricature(frame, img_frame, checkbutton_var.get(), file_text))
+    button = customtkinter.CTkButton(frame, text='Create Caricature', font=font, command=lambda: create_caricature(frame, img_frame, checkbutton_var.get(), file_text, button))
     button.grid(row=3, column=0, columnspan=2)
     string_var = StringVar()
     error_label = customtkinter.CTkLabel(frame, textvariable=string_var, font=('Times New Roman', 20))
@@ -170,9 +176,9 @@ def main(window, frame):
     font = ('Times New Roman', 20)
     mb = Menu(window)
     mb_dropdown = Menu(mb, tearoff=0)
-    mb_dropdown.add_command(label="Logout", command=lambda: open_login(window, frame))
-    mb_dropdown.add_command(label="About", command=lambda: open_about(window, frame))
-    mb_dropdown.add_command(label="Database", command=lambda: open_database(window, frame))
+    mb_dropdown.add_command(label="Logout", font=('Times New Roman', 20), command=lambda: open_login(window, frame))
+    mb_dropdown.add_command(label="About", font=('Times New Roman', 20), command=lambda: open_about(window, frame))
+    mb_dropdown.add_command(label="Database", font=('Times New Roman', 20), command=lambda: open_database(window, frame))
     mb.add_cascade(label="Menu", menu=mb_dropdown)
     window.config(menu=mb)
     main_frame = customtkinter.CTkFrame(frame)
