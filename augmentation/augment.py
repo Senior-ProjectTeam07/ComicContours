@@ -12,11 +12,36 @@ sys.path.append(parent_directory)
 
 # Import necessary modules
 from augmentation.nose import resize_nose, create_nose_mask
+from augmentation.mouth import resize_mouth, create_mouth_mask
 from augmentation.eyes import create_eye_mask
 from landmarking.load import load_feature_landmarks
+from landmarking.landmark_math import std_dev_features, avg_feature_sizes, global_avg_sizes
 from utils.file_utils import get_dir
 from utils.img_utils import multi_res_blend, poisson_blend
 from augmentation.make_image import make_img
+
+def get_std_dev_feature(image_id):
+    features = np.load(get_dir("data/facial_features.npy"))
+    global_avgs = global_avg_sizes(features)
+    std_devs = std_dev_features(features, global_avgs)
+
+    for img_id in np.unique(features[:, 0]):
+        nose_std, mouth_std, eye_std, nose_avg, mouth_avg, eye_avg = 0, 0, 0, 0, 0, 0
+        if img_id == image_id:
+            img_feature_sizes = avg_feature_sizes(features, img_id)
+            print(f"Image ID {img_id}:")
+            for region, size in img_feature_sizes.items():
+                if region == 'nose':
+                    nose_avg = size
+                    nose_std = std_devs[region]
+                if region == 'lips':
+                    mouth_avg = size
+                    mouth_std = std_devs[region]
+                if region == 'eyes':
+                    eye_avg = size
+                    eye_std = std_devs[region]
+            return nose_std, mouth_std, eye_std, nose_avg, mouth_avg, eye_avg
+
 
 # Function to augment the nose of the image
 def augment_nose(img_path, facial_features, image_id, feature_to_int, nose_scale_factor):
@@ -33,7 +58,23 @@ def augment_nose(img_path, facial_features, image_id, feature_to_int, nose_scale
     # Blur the nose mask
     nose_mask_blurred = cv2.GaussianBlur(nose_mask, (0, 0), 21)
     # Blend the original image and the image with the resized nose
+    original_img = img * (nose_mask_blurred / 255) + original_img * (1 - (nose_mask_blurred / 255))
     img = img * (nose_mask_blurred / 255) + original_img * (1 - (nose_mask_blurred / 255))
+    return img, original_img
+
+# Function to augment the mouth of the image
+def augment_mouth(img, original_img, facial_features, image_id, feature_to_int, mouth_scale_factor):
+    # Read the image
+    # Resize the mouth in the image
+    mouth_img = resize_mouth(img, facial_features, image_id, feature_to_int, mouth_scale_factor)
+    # Load the mouth landmarks
+    mouth_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'lips')
+    # Create a mask for the mouth
+    mouth_mask = create_mouth_mask(original_img, mouth_landmarks, width_margin_factor=0.1, height_margin_factor=0.1)
+    # Blur the mouth mask
+    mouth_mask_blurred = cv2.GaussianBlur(mouth_mask, (0, 0), 21)
+    # Blend the original image and the image with the resized mouth
+    img = mouth_img * (mouth_mask_blurred / 255) + original_img * (1 - (mouth_mask_blurred / 255))
     return img
 
 # Function to augment the eyes of the image
@@ -123,22 +164,36 @@ def augment_image():
     image_directory = get_dir('data/original_images')
     augmented_directory = get_dir('data/augmented_images')
     # Define scale factor for nose augmentation
-    nose_scale_factor = 1.25
+
+    mouth_scale_factor = 1.25
 
     # Create directory for augmented images if it doesn't exist
     if not os.path.exists(augmented_directory):
         os.makedirs(augmented_directory)
-
     # Get list of image paths from the image directory
     image_paths = [os.path.join(image_directory, filename) for filename in os.listdir(image_directory) if
                    filename.lower().endswith(('.png', '.jpg', '.jpeg'))]
-
     # Loop through each image path
-    for img_path in image_paths:
+    for img_num, img_path in enumerate(image_paths):
+        print(img_num)
+        nose_scale, mouth_scale, eyes_scale, nose_avg, mouth_avg, eye_avg = get_std_dev_feature(img_num)
+        nose_scale_factor = 1 + nose_avg/nose_scale
+        mouth_scale_factor = 1 + mouth_avg/mouth_scale
+        print('nose:', nose_scale_factor, '\nmouth:', mouth_scale_factor)
+        if nose_scale_factor < 1:  # not prominent feature
+            nose_scale_factor = 1.2
+        elif nose_scale_factor > 1.25:  # prominent feature
+            nose_scale_factor = 1.25
+        if mouth_scale_factor < 1:  # not prominent feature
+            mouth_scale_factor = 1.2
+        elif mouth_scale_factor > 1.25:  # prominent feature
+            mouth_scale_factor = 1.25
+
         # Get the index of the current image path
         image_id = image_paths.index(img_path)
         # Augment the nose of the image
-        img = augment_nose(img_path, facial_features, image_id, feature_to_int, nose_scale_factor)
+        img, original_img = augment_nose(img_path, facial_features, image_id, feature_to_int, nose_scale_factor)
+        img = augment_mouth(img, original_img, facial_features, image_id, feature_to_int, mouth_scale_factor)
         # Augment the eyes of the image
         img = augment_eyes(img, facial_features, image_id, feature_to_int)
         # Define the name and path for the augmented image
@@ -146,3 +201,7 @@ def augment_image():
         augmented_img_path = os.path.join(augmented_directory, augmented_img_name)
         # Save the augmented image
         cv2.imwrite(augmented_img_path, img)
+
+if __name__ == "__main__":
+    augment_image()
+
