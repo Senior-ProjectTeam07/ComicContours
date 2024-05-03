@@ -1,4 +1,11 @@
-import os 
+# test.py
+import os
+import sys
+# Add the parent directory to the system path to allow module imports from the parent
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
+# Continue with imports now that the system path has been modified
 import math
 import numpy as np
 import argparse
@@ -16,28 +23,37 @@ from align import ImageAlign
 def generate(
     generator, truncation, truncation_latent, inversion_file, styles, device
 ):
-    if os.path.exists(os.path.splitext(inversion_file)[0]+'_style.pt'):
-        indices = torch.load(os.path.splitext(inversion_file)[0]+'_style.pt')
-    else:
-        indices = range(styles.shape[0])
-    inversion_file = torch.load(inversion_file)
-    wp = inversion_file['wp'].to(device).unsqueeze(0)
-    noise = [n.to(device) for n in inversion_file['noise']]
-    os.makedirs(args.current_output_dir, exist_ok=True)
+    try:
+        if os.path.exists(os.path.splitext(inversion_file)[0]+'_style.pt'):
+            indices = torch.load(os.path.splitext(inversion_file)[0]+'_style.pt')
+        else:
+            indices = range(styles.shape[0])
+        if os.path.exists(inversion_file) and os.path.getsize(inversion_file) > 0:
+            inversion_file = torch.load(inversion_file)
+        else:
+            print(f"File {inversion_file} does not exist or is empty.")
+            return
+        wp = inversion_file['wp'].to(device).unsqueeze(0)
+        noise = [n.to(device) for n in inversion_file['noise']]
+        os.makedirs(args.current_output_dir, exist_ok=True)
 
-    phi = [1-args.exaggeration_factor] * 4
-    for i in indices:
-        img = generator(wp, [styles[i]], noise=noise, input_is_w_plus=True, \
+        phi = [1-args.exaggeration_factor] * 4
+        for i in indices:
+            img = generator(wp, [styles[i]], noise=noise, input_is_w_plus=True, \
                     truncation=truncation, truncation_latent=truncation_latent,\
                     mode='p2c', phi = phi)
 
-        utils.save_image(
-            img['result'],
-            os.path.join(args.current_output_dir, f'{i}.png'),
-            nrow=1,
-            normalize=True,
-            range=(-1, 1),
-        )
+            # Normalize the image to the range (-1, 1)
+            img['result'] = (img['result'] + 1) / 2
+
+            utils.save_image(
+                img['result'],
+                os.path.join(args.current_output_dir, f'{i}.png'),
+                nrow=1,
+                normalize=True,
+            )
+    except Exception as e:
+        print(f"An error occurred while processing {inversion_file}: {e}")
 
 
 if __name__ == "__main__":
@@ -48,12 +64,12 @@ if __name__ == "__main__":
     parser.add_argument("--truncation", type=float, default=1, help="truncation factor")
     parser.add_argument("--truncation_mean", type=int, default=4096, help="number of samples to calculate mean for truncation")
     parser.add_argument("--size", type=int, default=256, help="image sizes for generator")
-    parser.add_argument('--ckpt', type=str, required=True, help='path to checkpoint')
-    parser.add_argument('--input_dir', type=str, default='samples', help='directory with input inverted .pt files or input images to invert')
-    parser.add_argument('--output_dir', type=str, default='results', help='directory to save generated caricatures')
-    parser.add_argument('--predefined_style', type=str, default="style_palette/style_palette.npy", help='pre-selected style z-vector file')
+    parser.add_argument('--ckpt', type=str, default="/home/jojo/OneDrive/UNR/CS426/ComicContours/StyleCariGAN/checkpoint/StyleCariGAN/001000.pt", help='path to checkpoint')
+    parser.add_argument('--input_dir', type=str, default="/home/jojo/OneDrive/UNR/CS426/ComicContours/data/original_images", help='directory with input inverted .pt files or input images to invert')
+    parser.add_argument('--output_dir', type=str, default="/home/jojo/OneDrive/UNR/CS426/ComicContours/data/gan_images", help='directory to save generated caricatures')
+    parser.add_argument('--predefined_style', type=str, default="/home/jojo/OneDrive/UNR/CS426/ComicContours/StyleCariGAN/style_palette/style_palette_27.npy", help='pre-selected style z-vector file')
     parser.add_argument('--exaggeration_factor', type=float, default=1.0, help='exaggeration factor, 0 to 1')
-    parser.add_argument('--invert_images', action='store_true', help='invert images in sample folder to generate caricature from them')
+    parser.add_argument('--invert_images', action='store_true', default=True, help='invert images in sample folder to generate caricature from them')
 
     # used if args.invert_images is true
     parser.add_argument("--w_iterations", type=int, default=250)
@@ -115,6 +131,9 @@ if __name__ == "__main__":
                 args.image_name = fn.split('.')[0]
                 args.image = os.path.join(args.input_dir, fn)
                 aligned_image = align(args.image)
+                if aligned_image is None:
+                    print(f"Face not detected in {args.image}, skipping this image.")
+                    continue
                 photo = transform(aligned_image).unsqueeze(0).to(device)
                 args.image_name = args.image.split('/')[-1].split('.')[0]
                 invert(g_ema.photo_generator, perceptual, photo, device, args)

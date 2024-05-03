@@ -8,13 +8,18 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
 from utils.file_utils import get_dir
-from utils.landmark_utils import FACIAL_LANDMARKS_68_IDX
+from utils.landmark_utils import FACIAL_LANDMARKS_68_IDX, feature_to_int, int_to_feature
 
 def calc_dist(pt1, pt2):
     """
-    Calculate the Euclidean distance between two points.
+    Calculate the Euclidean distance between two points, with strict type checking.
     """
-    return np.sqrt((pt1[0] - pt2[0])**2 + (pt1[1] - pt2[1])**2)
+    try:
+        x1, y1 = float(pt1[0]), float(pt1[1])
+        x2, y2 = float(pt2[0]), float(pt2[1])
+        return np.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+    except ValueError as e:
+        raise ValueError("Both points must contain numerical values that are convertible to float.") from e
 
 def avg_feature_sizes(features, img_id):
     """
@@ -22,10 +27,15 @@ def avg_feature_sizes(features, img_id):
     """
     avg_sizes = {}
     for region, points in get_region_pts(features, img_id).items():
-        dists = [calc_dist(points[i][3:], points[i + 1][3:]) for i in range(len(points) - 1)]
+        print(f"Calculating distances for region: {region} with points: {points}")  # Debug
+        dists = []
+        for i in range(len(points) - 1):
+            dist = calc_dist(points[i][3:], points[i + 1][3:])
+            dists.append(dist)
+            print(f"Distance between {points[i][3:]} and {points[i + 1][3:]}: {dist}")  # Debug
         avg_sizes[region] = np.mean(dists) if dists else 0
+        print(f"Average size for {region}: {avg_sizes[region]}")  # Debug
     return avg_sizes
-
 
 def get_region_pts(features, img_id):
     """
@@ -34,7 +44,10 @@ def get_region_pts(features, img_id):
     img_features = features[features[:, 0] == img_id]
     region_pts = {}
     for region, indices in FACIAL_LANDMARKS_68_IDX.items():
-        region_pts[region] = img_features[np.isin(img_features[:, 2], range(*indices))]
+        region_features = img_features[np.isin(img_features[:, 1], range(*indices))]
+        region_pts[region] = region_features
+        # Debug: Output the number of points extracted for each region
+        print(f"Region {region} points extracted: {len(region_features)}")
     return region_pts
 
 def global_avg_sizes(features):

@@ -1,20 +1,17 @@
 # nose.py
-
-import numpy as np
-import cv2
-import sys
 import os
-
-# Get the current directory and parent directory for importing modules
+import sys
+# Add the parent directory to the system path to allow module imports from the parent
 current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
-
-# Import necessary modules
+# Continue with imports now that the system path has been modified
+import numpy as np
+import cv2
 from landmarking.load import load_feature_landmarks
 from augmentation.resize_overlay import resize_and_overlay_feature
 from utils.img_utils import multi_res_blend, poisson_blend
-
+from utils.landmark_utils import FACIAL_LANDMARKS_68_IDX, feature_to_int
 
 def resize_nose(img, facial_features, image_id, feature_to_int, scale_factor):
     '''
@@ -34,14 +31,24 @@ def resize_nose(img, facial_features, image_id, feature_to_int, scale_factor):
         raise ValueError("Scale factor must be in the range (0, 3].")
     
     try:
-        nose_landmarks = load_feature_landmarks(facial_features, image_id, feature_to_int, 'Nose')  # Changed 'Nose' to 'nose'
+        nose_landmarks = load_feature_landmarks(facial_features, image_id, 'Nose')
         if nose_landmarks.size == 0:
             raise ValueError("No nose landmarks found for the given image ID.")
     except Exception as e:
         raise ValueError(f"Error loading nose landmarks: {e}")
 
+    # Calculate the width and height of the nose region
+    x_min, y_min = np.min(nose_landmarks, axis=0)
+    x_max, y_max = np.max(nose_landmarks, axis=0)
+    width = x_max - x_min
+    height = y_max - y_min
+
+    # Calculate the margin factors based on the size of the nose region
+    width_margin_factor = width / img.shape[1]
+    height_margin_factor = height / img.shape[0]
+
     try:
-        return resize_and_overlay_feature(img, nose_landmarks, scale_factor, width_margin_factor=0.6, height_margin_factor=0.7)
+        return resize_and_overlay_feature(img, nose_landmarks, scale_factor, width_margin_factor, height_margin_factor)
     except Exception as e:
         raise ValueError(f"Error resizing and overlaying nose feature: {e}")
 

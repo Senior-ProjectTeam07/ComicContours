@@ -62,5 +62,17 @@ class TestResizeAndOverlayFeature(unittest.TestCase):
         with self.assertRaises(ValueError):
             resize_and_overlay_feature(self.img, np.array([[200, 200], [300, 300]]), self.scale_factor, self.width_margin_factor, self.height_margin_factor)
 
+    def test_resize_and_overlay_feature_with_larger_feature(self):
+        # Create a smaller image and larger feature points
+        small_img = np.zeros((50, 50, 3), dtype=np.uint8)
+        large_feature_points = np.array([[10, 10], [60, 60]])
+
+        # Call the function under test
+        result = resize_and_overlay_feature(small_img, large_feature_points, self.scale_factor, self.width_margin_factor, self.height_margin_factor)
+
+        # Assertions to validate the outcome
+        self.assertIsNotNone(result)
+        self.assertEqual(result.shape, small_img.shape)
+
 if __name__ == '__main__':
     unittest.main()

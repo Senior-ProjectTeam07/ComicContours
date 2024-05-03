@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # 300W dataset
-data/300W/*
+data/*
 
 # StyleCariGAN pre-trained model
 StyleCariGAN/checkpoint/*

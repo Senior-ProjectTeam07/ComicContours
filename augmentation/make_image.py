@@ -1,16 +1,13 @@
 # make_image.py
-
-import cv2
-import numpy as np
-import sys
 import os
-
-# Get the current directory and parent directory for importing modules
+import sys
+# Add the parent directory to the system path to allow module imports from the parent
 current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
-
-# Import necessary modules
+# Continue with imports now that the system path has been modified
+import cv2
+import numpy as np
 from augmentation.eyes import multiply_eye_mask
 from utils.img_utils import poisson_blend
 

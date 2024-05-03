@@ -1,4 +1,10 @@
+# invert.py
 import os
+import sys
+# Add the parent directory to the system path to allow module imports from the parent
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+sys.path.append(parent_directory)
 import math
 import numpy as np
 import argparse
@@ -9,8 +15,7 @@ from torchvision import transforms, utils
 from PIL import Image
 from tqdm import tqdm
 
-from exaggeration_model import StyleCariGAN
-
+from StyleCariGAN.exaggeration_model import StyleCariGAN
 
 class perceptual_module(torch.nn.Module):
     def __init__(self):

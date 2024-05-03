@@ -1,12 +1,13 @@
 # resize_overlay.py
-
-import cv2
-import numpy as np
-import sys
 import os
+import sys
+# Add the parent directory to the system path to allow module imports from the parent
 current_directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(current_directory)
 sys.path.append(parent_directory)
+# Continue with imports now that the system path has been modified
+import cv2
+import numpy as np
 
 def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_factor, height_margin_factor):
     '''
@@ -74,12 +75,25 @@ def resize_and_overlay_feature(img, feature_points, scale_factor, width_margin_f
     scaled_feature = cv2.resize(feature_region, (scaled_width, scaled_height), interpolation=cv2.INTER_LINEAR)
 
     # Calculate the overlay positions ensuring they are within bounds
-    overlay_start_x = max(min(x_min + (feature_width - scaled_width) // 2, img.shape[1] - scaled_width), 0)
-    overlay_end_x = overlay_start_x + scaled_width
-    overlay_start_y = max(min(y_min + (feature_height - scaled_height) // 2, img.shape[0] - scaled_height), 0)
-    overlay_end_y = overlay_start_y + scaled_height
+    overlay_start_x = max(x_min + (feature_width - scaled_width) // 2, 0)
+    overlay_end_x = min(overlay_start_x + scaled_width, img.shape[1])
+    overlay_start_y = max(y_min + (feature_height - scaled_height) // 2, 0)
+    overlay_end_y = min(overlay_start_y + scaled_height, img.shape[0])
 
-    # Overlay the scaled feature onto the original image
-    img[overlay_start_y:overlay_end_y, overlay_start_x:overlay_end_x] = scaled_feature
+    # Calculate the intersection of the original image and the resized feature
+    intersection_start_x = max(0, overlay_start_x)
+    intersection_start_y = max(0, overlay_start_y)
+    intersection_end_x = min(img.shape[1], overlay_end_x)
+    intersection_end_y = min(img.shape[0], overlay_end_y)
+
+    # Calculate the corresponding part of the resized feature
+    feature_start_x = intersection_start_x - overlay_start_x
+    feature_start_y = intersection_start_y - overlay_start_y
+    feature_end_x = feature_start_x + (intersection_end_x - intersection_start_x)
+    feature_end_y = feature_start_y + (intersection_end_y - intersection_start_y)
+
+    # Overlay the intersection onto the original image
+    img[intersection_start_y:intersection_end_y, intersection_start_x:intersection_end_x] = \
+        scaled_feature[feature_start_y:feature_end_y, feature_start_x:feature_end_x]
 
     return img

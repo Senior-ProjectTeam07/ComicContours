@@ -1,5 +1,6 @@
 from tests.test_augment_integration import TestAugmentingFeatures
 from tests.test_augment import TestAugment
 from tests.test_image_utils import TestImageUtils
+from tests.test_landmarks_to_style import TestLandmarksToStyle
 from tests.test_make_image import TestMakeImage
 from tests.test_nose import TestNose
